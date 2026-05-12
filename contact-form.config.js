@@ -19,28 +19,33 @@
 // <script src="..."> tag placed BEFORE review-bootstrap.js. The relative
 // path differs per page nesting depth.
 //
-// Firebase posture (2026-05-10): the FIREBASE_CONFIG values are
-// placeholders. With placeholders in place, the widget loads in
-// "degraded mode" when ?review=1 is set — UI renders, composer accepts
-// input, persistence fails silently. Default (no ?review=1) remains
-// fully inert. Replace placeholders with real Firebase project values
-// once provisioned.
+// Firebase posture (2026-05-13): Real Firebase project `glinda-website`
+// provisioned. Widget loads in full mode when ?review=1; LP form submits
+// land at RTDB /leads/{pushId}. Security is rule-based (no auth) —
+// rules JSON lives at brand/firebase-rules.json and is pasted into
+// Firebase console → Realtime Database → Rules tab.
+//
+// API key safety: Firebase Web config values are designed to be public.
+// They're identifiers, not secrets. Database security rules (NOT this
+// config) are what control access. This file is safe to commit + serve.
 
 window.GLINDA_CONTACT_CONFIG = {
 
   // ============================================================
-  // FIREBASE_CONFIG
+  // FIREBASE_CONFIG — glinda-website project (provisioned 2026-05-13)
   // ============================================================
-  // Realtime Database (not Firestore). Path: /comments/{pushId}
-  // per features.review-widget.firebase-rtdb-adapter.
+  // Realtime Database paths:
+  //   /comments/{pushId}  — review-widget comments per features.review-widget.firebase-rtdb-adapter
+  //   /leads/{pushId}     — LP contact-form submits per content/web/testing-matrix.md §"Lead capture flow"
   FIREBASE_CONFIG: {
-    apiKey:            "TBD-replace-with-real-firebase-api-key",
-    authDomain:        "TBD-replace-with-real.firebaseapp.com",
-    databaseURL:       "https://TBD-replace-with-real.firebaseio.com",
-    projectId:         "TBD-replace-with-real",
-    storageBucket:     "TBD-replace-with-real.appspot.com",
-    messagingSenderId: "TBD",
-    appId:             "TBD"
+    apiKey:            "AIzaSyAC3f0IH9-s7XU9fTE3jbk7Bhfn20uTIdY",
+    authDomain:        "glinda-website.firebaseapp.com",
+    databaseURL:       "https://glinda-website-default-rtdb.firebaseio.com",
+    projectId:         "glinda-website",
+    storageBucket:     "glinda-website.firebasestorage.app",
+    messagingSenderId: "244199801855",
+    appId:             "1:244199801855:web:82838197aab888d894ddca",
+    measurementId:     "G-R8YJ0J0FC2"
   },
 
   // ============================================================
