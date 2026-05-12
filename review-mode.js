@@ -472,17 +472,9 @@ function renderGroup(anchorId, comments) {
     groupEl.appendChild(renderComment(c));
   }
 
-  // Group footer — "Mark group as done" — only when pending and > 1 active comments
-  if (status === 'pending' && count > 1) {
-    groupEl.appendChild(el('div', { class: 'review-group-footer' },
-      el('button', {
-        type: 'button',
-        class: 'archive-group-btn',
-        text: state.LABELS.archiveGroupLabel,
-        on: { click: () => bulkArchive(nonArchived.map((c) => c.id)) }
-      })
-    ));
-  }
+  // Glinda variation (2026-05-13): group-footer bulk-archive removed.
+  // Archiving is Claude/operator-driven via RTDB write, not a UI action.
+  // See .claude/variations/review-widget.md §"Feedback-only button set".
 
   return groupEl;
 }
@@ -492,29 +484,18 @@ function renderComment(c) {
 
   const actions = el('div', { class: 'actions' });
 
+  // Glinda variation (2026-05-13): feedback-only button set.
+  // Apply + Archive transitions happen via Claude / operator working the
+  // RTDB directly, not via UI buttons. Editing only makes sense in the
+  // active state (restore first if you want to edit a non-active comment).
+  // See .claude/variations/review-widget.md §"Feedback-only button set".
   if (c.status === 'pending') {
-    actions.appendChild(el('button', {
-      class: 'apply-btn', type: 'button', text: state.LABELS.applyLabel,
-      on: { click: (ev) => { ev.stopPropagation(); applyComment(c.id); } }
-    }));
     actions.appendChild(el('button', {
       class: 'edit-btn', type: 'button', text: state.LABELS.editLabel,
       on: { click: (ev) => { ev.stopPropagation(); openComposerEdit(c); } }
     }));
-    actions.appendChild(el('button', {
-      class: 'archive-btn', type: 'button', text: state.LABELS.archiveLabel,
-      on: { click: (ev) => { ev.stopPropagation(); archiveComment(c.id, 'row'); } }
-    }));
-  } else if (c.status === 'applied') {
-    actions.appendChild(el('button', {
-      class: 'restore-btn', type: 'button', text: state.LABELS.restoreLabel,
-      on: { click: (ev) => { ev.stopPropagation(); restoreComment(c.id); } }
-    }));
-    actions.appendChild(el('button', {
-      class: 'archive-btn', type: 'button', text: state.LABELS.archiveLabel,
-      on: { click: (ev) => { ev.stopPropagation(); archiveComment(c.id, 'row'); } }
-    }));
   } else {
+    // applied OR archived: Restore is available; Edit is not (restore-first).
     actions.appendChild(el('button', {
       class: 'restore-btn', type: 'button', text: state.LABELS.restoreLabel,
       on: { click: (ev) => { ev.stopPropagation(); restoreComment(c.id); } }
