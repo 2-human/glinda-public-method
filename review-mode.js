@@ -106,11 +106,23 @@ const state = {
 // Anchor strategy
 // ============================================================
 
+// Glinda variation (2026-05-13): expanded tag list to cover form labels,
+// testimonial blockquotes/cites, figure captions, and a few interactive
+// chrome elements (label, button) that reviewers commonly need to comment
+// on. The chrome-exclusion logic in isInChrome() still skips the widget's
+// own elements; this is additive only.
+// See .claude/variations/review-widget.md §"Expanded anchor-tag list".
 const ANCHOR_TAGS = [
   'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
   'p', 'li', 'td', 'th', 'dt', 'dd',
   'strong', 'em', 'small', 'span',
-  'section', 'article', 'aside', 'header', 'footer', 'nav', 'main', 'figure'
+  'section', 'article', 'aside', 'header', 'footer', 'nav', 'main', 'figure',
+  // Glinda additions (2026-05-13):
+  'label',         // form-field labels
+  'blockquote',    // testimonial quote bodies
+  'cite',          // testimonial attributions
+  'figcaption',    // figure captions
+  'button'         // CTAs — reviewers comment on button copy
 ];
 
 function derivePageSlug() {
