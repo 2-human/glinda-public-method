@@ -441,13 +441,100 @@
       color: var(--tgg-navy);
       font-weight: 600;
     }
+
+
+
+    /* ---------- Problem band — horizontal strip, border-only highlight ---------- */
+    .problem-band {
+      background: var(--tgg-off-white);
+      padding: 3rem 0;
+      border-top: 1px solid var(--tgg-hairline);
+    }
+    .problem-band .wrapper {
+      max-width: none;
+      padding: 0 1.5rem;
+    }
+    .problem-band .band-heading {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tgg-ink-muted);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .problem-band .band-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.9rem;
+    }
+    .problem-band .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.85rem;
+      padding: 1.1rem 1rem;
+      background: var(--bg-1);
+      border: 2px solid var(--tgg-hairline);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--tgg-ink);
+      transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
+      min-height: 150px;
+    }
+    .problem-band a.card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(1, 5, 94, 0.08);
+      border-color: var(--tgg-purple);
+      color: var(--tgg-ink);
+    }
+    .problem-band .card h3 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--tgg-navy);
+      margin: 0;
+    }
+    .problem-band .card .meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+    }
+    .problem-band .card .pattern {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--tgg-purple);
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+    }
+    .problem-band .card .workshop {
+      font-size: 0.75rem;
+      color: var(--tgg-ink-muted);
+    }
+    /* Active card — border-only highlight, no background change */
+    .problem-band .card.active {
+      border-color: var(--tgg-purple);
+      cursor: default;
+    }
+    @media (max-width: 900px) {
+      .problem-band .band-strip {
+        grid-template-columns: repeat(7, minmax(180px, 1fr));
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--tgg-hairline) transparent;
+      }
+    }
   </style>
 </head>
 <body>
 
   <nav>
     <div class="wrapper">
-      <a href="https://glindagroup.com/" class="brand" aria-label="The Glinda Group home">
+      <a href="../../" class="brand" aria-label="Engage Glinda home">
         <img src="../../files/logo.svg" alt="The Glinda Group" class="brand-logo">
       </a>
       <a href="https://glindagroup.com/" class="main-link">Explore Glinda →</a>
@@ -619,6 +706,69 @@
         <button type="submit" class="btn btn-primary">Send</button>
         <div class="form-status" id="lf-status" role="status" aria-live="polite"></div>
       </form>
+    </div>
+  </section>
+
+
+
+
+
+
+  <!-- ===== Problem band — horizontal strip (all 7 symptoms; current page highlighted via purple border, non-clickable) ===== -->
+  <section class="problem-band">
+    <div class="wrapper">
+      <p class="band-heading">What Else Hurts?</p>
+      <div class="band-strip">
+        <a class="card" href="../lp-goals-trial/">
+          <h3>Why don't your goals ever stick?</h3>
+          <div class="meta">
+            <span class="pattern">The SMART-goal trap</span>
+            <span class="workshop">Workshop: T.R.I.A.L.</span>
+          </div>
+        </a>
+        <a class="card" href="../lp-decisions-jadm/">
+          <h3>Why does your team keep making the wrong call?</h3>
+          <div class="meta">
+            <span class="pattern">Hidden self-interest</span>
+            <span class="workshop">Workshop: JA(d)M Session</span>
+          </div>
+        </a>
+        <span class="card active" aria-current="page">
+          <h3>Why do half your people seem checked out?</h3>
+          <div class="meta">
+            <span class="pattern">Status asymmetry</span>
+            <span class="workshop">Workshop: Super Friends</span>
+          </div>
+        </span>
+        <a class="card" href="../lp-culture-cultureclub/">
+          <h3>Why doesn't your culture deck match how it actually feels?</h3>
+          <div class="meta">
+            <span class="pattern">Espoused-vs-enacted</span>
+            <span class="workshop">Workshop: The Culture Club</span>
+          </div>
+        </a>
+        <a class="card" href="../lp-silos-collaborationnation/">
+          <h3>Why are your teams pulling further apart, not closer together?</h3>
+          <div class="meta">
+            <span class="pattern">Identity-driven silo formation</span>
+            <span class="workshop">Workshop: Collaboration Nation</span>
+          </div>
+        </a>
+        <a class="card" href="../lp-leadership-totmty/">
+          <h3>Why have your best leaders gone missing in plain sight?</h3>
+          <div class="meta">
+            <span class="pattern">Execution-default</span>
+            <span class="workshop">Workshop: Top of the Mind to You!</span>
+          </div>
+        </a>
+        <a class="card" href="../lp-attitudes-mythbusters/">
+          <h3>Why is your team holding on to ideas that don't match the data?</h3>
+          <div class="meta">
+            <span class="pattern">Belief persistence</span>
+            <span class="workshop">Workshop: Mythbusters</span>
+          </div>
+        </a>
+      </div>
     </div>
   </section>
 
