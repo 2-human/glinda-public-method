@@ -552,7 +552,7 @@
 
     /* ---------- Client logos band ---------- */
     .client-logos {
-      padding: 2rem 0;
+      padding: 2.25rem 0;
       border-top: 1px solid var(--tgg-hairline);
       border-bottom: 1px solid var(--tgg-hairline);
       background: var(--bg-1);
@@ -565,26 +565,47 @@
       text-transform: uppercase;
       letter-spacing: 0.12em;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
     .client-logos .logos-row {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      gap: 2.5rem;
+      gap: 3rem;
     }
+    /* Image-logo treatment — protastudios convention. Once approved client */
+    /* logo files (SVG preferred) drop into /files/, swap the placeholder    */
+    /* spans below for <img class="client-logo" src="..." alt="...">.        */
+    .client-logos .client-logo {
+      height: 30px;
+      width: auto;
+      max-width: 160px;
+      filter: grayscale(100%);
+      opacity: 0.55;
+      transition: filter 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+    }
+    .client-logos .client-logo:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+    /* Text-placeholder treatment — visually approximates the styled logo */
+    /* strip until approved logo files are provided by each client.       */
     .client-logos .client-name {
       font-family: var(--font-display);
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       font-weight: 700;
       color: var(--tgg-navy);
-      letter-spacing: -0.01em;
-      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.55;
+      transition: opacity 0.2s var(--ease-out);
     }
+    .client-logos .client-name:hover { opacity: 1; }
     @media (max-width: 640px) {
-      .client-logos .logos-row { gap: 1.25rem; }
-      .client-logos .client-name { font-size: 0.95rem; }
+      .client-logos .logos-row { gap: 1.5rem; }
+      .client-logos .client-name { font-size: 0.85rem; }
+      .client-logos .client-logo { height: 24px; }
     }
 
     /* ---------- Testimonials band ---------- */
@@ -744,9 +765,9 @@
     <div class="wrapper">
       <p class="logos-eyebrow">Behavioral science with teams at:</p>
       <div class="logos-row">
-        <span class="client-name">Second Harvest Heartland</span>
-        <span class="client-name">Aspect Software</span>
-        <span class="client-name">Synd.io</span>
+        <img class="client-logo" src="../../files/logo-2harvest.png" alt="Second Harvest Heartland">
+        <img class="client-logo" src="../../files/logo-aspect.jpg"   alt="Aspect Software">
+        <img class="client-logo" src="../../files/logo-syndio.png"   alt="Synd.io">
       </div>
     </div>
   </section>
