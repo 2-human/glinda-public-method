@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Glinda Group — Where does it hurt?</title>
-  <meta name="description" content="Behavioral-science consultancy for organizations whose teams aren't quite landing. Pick the symptom that fits — we'll show you what's underneath.">
+  <title>Where does it hurt? · The Glinda Group</title>
+  <meta name="description" content="Behavioral-science consultancy for organizations whose teams aren't quite landing. Pick the symptom that fits, and we'll show you what's underneath.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +13,13 @@
   <link rel="icon" type="image/png" sizes="300x300" href="./files/favicon-300.png">
   <link rel="icon" type="image/png" sizes="150x150" href="./files/favicon-150.png">
 
-  <!-- Review widget — inert by default; activates only with ?review=1. -->
+  <!-- Review widget, inert by default; activates only with ?review=1. -->
   <script src="./contact-form.config.js"></script>
   <script src="./review-bootstrap.js" defer></script>
+  <script src="./sidepane.js" defer></script>
 
   <style>
-    /* Brand tokens — sourced from brand/ui-kit-tokens.md (canonical Glinda UI Kit) */
+    /* Brand tokens, sourced from brand/ui-kit-tokens.md (canonical Glinda UI Kit). */
     :root {
       --tgg-purple: #8705E4;
       --tgg-purple-darker: #6804B5;
@@ -432,6 +433,31 @@
       .founder-photo { width: 80px; height: 80px; }
     }
 
+    /* ---------- Footer links + copyright row ---------- */
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    footer .footer-links a {
+      color: var(--tgg-ink-muted);
+      text-decoration: none;
+      transition: color 0.15s var(--ease-out);
+      cursor: pointer;
+    }
+    footer .footer-links a:hover {
+      color: var(--tgg-purple);
+      text-decoration: underline;
+    }
+    footer .footer-copyright {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--tgg-ink-muted);
+    }
+
     /* ---------- Footer ---------- */
     footer {
       padding: 2.5rem 0;
@@ -466,15 +492,15 @@
   <section class="hero">
     <div class="wrapper">
       <h1>Where does it hurt?</h1>
-      <p class="sub">Behavioral-science consultancy for organizations whose teams aren't quite landing. Pick the symptom that fits — we'll show you what's underneath, and what to do about it.</p>
+      <p class="sub">Behavioral-science consultancy for organizations whose teams aren't quite landing. Pick the symptom that fits. We'll show you what's underneath, and what to do about it.</p>
     </div>
   </section>
 
-  <!-- ===== DIRECTORY — 2-3-2 ===== -->
+  <!-- ===== DIRECTORY: 2-3-2 ===== -->
   <section class="directory">
     <div class="wrapper">
 
-      <!-- Row 1 — 2 cards -->
+      <!-- Row 1: 2 cards -->
       <div class="row row-2">
         <a class="card" href="./lp/lp-goals-trial/">
           <h2>Why don't your goals ever stick?</h2>
@@ -492,7 +518,7 @@
         </a>
       </div>
 
-      <!-- Row 2 — 3 cards -->
+      <!-- Row 2: 3 cards -->
       <div class="row row-3">
         <a class="card" href="./lp/lp-underperformance-superfriends/">
           <h2>Why do half your people seem checked out?</h2>
@@ -517,7 +543,7 @@
         </a>
       </div>
 
-      <!-- Row 3 — 2 cards -->
+      <!-- Row 3: 2 cards -->
       <div class="row row-2">
         <a class="card" href="./lp/lp-leadership-totmty/">
           <h2>Why have your best leaders gone missing in plain sight?</h2>
@@ -538,12 +564,12 @@
     </div>
   </section>
 
-  <!-- ===== FORM — tell us what's not working ===== -->
+  <!-- ===== FORM: tell us what's not working ===== -->
   <section class="form-block" id="contact">
     <div class="wrapper">
       <div class="form-intro">
         <h2>Tell us what's not working.</h2>
-        <p class="form-sub">Send us a message — describe the symptom in a couple of sentences. We'll come back within one business day with a read on what's underneath.</p>
+        <p class="form-sub">Describe the symptom in a couple of sentences. We'll come back within one business day with a read on what's underneath.</p>
       </div>
       <form id="lead-form" novalidate>
         <div>
@@ -589,7 +615,7 @@
     </div>
   </section>
 
-  <!-- ===== SCIENCE & WHIMSY — founders ===== -->
+  <!-- ===== SCIENCE & WHIMSY: founders ===== -->
   <section class="founders">
     <div class="wrapper">
       <div class="intro">
@@ -607,7 +633,7 @@
               <div class="founder-role">Co-Founder, CEO</div>
             </div>
           </div>
-          <p class="founder-bio">Laura's work is proof that you don't need a spotlight to create lasting change. From her years at Target to her leadership in tech and HR, she's helped build teams where people grow, businesses weather storms, and the numbers improve almost by accident — because people come first. She doesn't claim to have all the answers, but never stops searching for better ones.</p>
+          <p class="founder-bio">Laura's work is proof that you don't need a spotlight to create lasting change. From her years at Target to her leadership in tech and HR, she's helped build teams where people grow, businesses weather storms, and the numbers improve almost by accident, because people come first. She doesn't claim to have all the answers, but never stops searching for better ones.</p>
           <a class="founder-link" href="https://www.linkedin.com/in/lauraemartin1/" target="_blank" rel="noopener">Laura on LinkedIn →</a>
         </article>
 
@@ -630,11 +656,17 @@
     <div class="wrapper">
       <div class="signature">Kindness is Cooler than Coolness.</div>
       <div>The Glinda Group · Behavioral science with a sense of humor.</div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://glindagroup.com/" target="_blank" rel="noopener">Explore Glinda →</a>
+        <a class="sidepane-trigger" href="./content/privacy.html" data-sidepane-title="Privacy Policy">Privacy Policy</a>
+        <a class="sidepane-trigger" href="./content/terms.html" data-sidepane-title="Terms of Use">Terms of Use</a>
+      </nav>
+      <div class="footer-copyright">© 2026 The Glinda Group LLC. All rights reserved.</div>
     </div>
   </footer>
 
   <script>
-    // Lead form submit — writes to Firebase RTDB /leads/{push-id} if configured;
+    // Lead form submit. Writes to Firebase RTDB /leads/{push-id} if configured;
     // falls back to a friendly success message in degraded mode (placeholder config).
     //
     // UTM persistence (2026-05-15): UTMs are captured from the URL on every page
@@ -647,7 +679,7 @@
       var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
       // Stash any UTMs present in the URL into sessionStorage. Runs on every
-      // page load — last entry-with-UTMs wins per session.
+      // page load. Last entry-with-UTMs wins per session.
       (function persistUtms() {
         try {
           var qs = new URLSearchParams(window.location.search);
@@ -659,7 +691,7 @@
             if (v) hasAny = true;
           });
           if (hasAny) sessionStorage.setItem('glinda_utms', JSON.stringify(snapshot));
-        } catch (e) { /* sessionStorage unavailable — silent */ }
+        } catch (e) { /* sessionStorage unavailable, silent */ }
       })();
 
       function getUtm(key) {
@@ -708,8 +740,8 @@
         var dbUrl = cfg && cfg.databaseURL;
 
         if (!dbUrl || dbUrl.indexOf('TBD') !== -1) {
-          console.warn('[lead-form] Firebase not yet provisioned — degraded mode. Captured data:', data);
-          showStatus('success', "Thanks — we'll be in touch within one business day. (Note: backend not yet live; your submission was captured locally.)");
+          console.warn('[lead-form] Firebase not yet provisioned, degraded mode. Captured data:', data);
+          showStatus('success', "Thanks. We'll be in touch within one business day. (Backend not yet live, so your submission was captured locally.)");
           form.reset();
           return;
         }
@@ -724,7 +756,7 @@
             return res.json();
           })
           .then(function () {
-            showStatus('success', "Thanks — we'll be in touch within one business day.");
+            showStatus('success', "Thanks. We'll be in touch within one business day.");
             form.reset();
           })
           .catch(function (err) {

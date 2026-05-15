@@ -13,18 +13,19 @@
   <link rel="icon" type="image/png" sizes="300x300" href="../../files/favicon-300.png">
   <link rel="icon" type="image/png" sizes="150x150" href="../../files/favicon-150.png">
 
-  <!-- Review widget — inert by default; activates only with ?review=1.
+  <!-- Review widget, inert by default; activates only with ?review=1.
        The review-bootstrap.js also injects a floating Comments button per
        library/features/review-widget/inert-entry-button.md. -->
   <script src="../../contact-form.config.js"></script>
   <script src="../../review-bootstrap.js" defer></script>
+  <script src="../../sidepane.js" defer></script>
 
   <style>
-    /* Brand tokens — sourced from brand/ui-kit-tokens.md (canonical Glinda UI Kit) */
+    /* Brand tokens, sourced from brand/ui-kit-tokens.md (canonical Glinda UI Kit). */
     :root {
       /* Brand colors */
       --tgg-purple: #8705E4;
-      --tgg-purple-darker: #6804B5;   /* project-only — hover state */
+      --tgg-purple-darker: #6804B5;   /* project-only, hover state */
       --tgg-navy: #01055E;
       --tgg-sky: #53DEFF;
 
@@ -277,7 +278,7 @@
     }
     .symptom li:last-child { border-bottom: none; }
     .symptom li:before {
-      content: "—";
+      content: "•";
       position: absolute;
       left: 0;
       color: var(--tgg-purple);
@@ -318,7 +319,7 @@
       font-size: 0.95rem;
       color: var(--tgg-ink);
     }
-    .phaseware-embed { /* v2 — empty in v1 */ }
+    .phaseware-embed { /* v2, empty in v1 */ }
 
     /* ---------- Outcomes ---------- */
     .outcomes-strip {
@@ -529,6 +530,31 @@
       .founder-photo { width: 80px; height: 80px; }
     }
 
+    /* ---------- Footer links + copyright row ---------- */
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    footer .footer-links a {
+      color: var(--tgg-ink-muted);
+      text-decoration: none;
+      transition: color 0.15s var(--ease-out);
+      cursor: pointer;
+    }
+    footer .footer-links a:hover {
+      color: var(--tgg-purple);
+      text-decoration: underline;
+    }
+    footer .footer-copyright {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--tgg-ink-muted);
+    }
+
     /* ---------- Footer ---------- */
     footer {
       padding: 2rem 0;
@@ -574,7 +600,7 @@
       align-items: center;
       gap: 3rem;
     }
-    /* Image-logo treatment — protastudios convention. Once approved client */
+    /* Image-logo treatment, protastudios convention. Once approved client */
     /* logo files (SVG preferred) drop into /files/, swap the placeholder    */
     /* spans below for <img class="client-logo" src="..." alt="...">.        */
     .client-logos .client-logo {
@@ -589,7 +615,7 @@
       filter: grayscale(0%);
       opacity: 1;
     }
-    /* Text-placeholder treatment — visually approximates the styled logo */
+    /* Text-placeholder treatment, visually approximates the styled logo */
     /* strip until approved logo files are provided by each client.       */
     .client-logos .client-name {
       font-family: var(--font-display);
@@ -646,7 +672,7 @@
 
 
 
-    /* ---------- Problem band — horizontal strip, border-only highlight ---------- */
+    /* ---------- Problem band: horizontal strip, border-only highlight ---------- */
     .problem-band {
       background: var(--tgg-off-white);
       padding: 3rem 0;
@@ -716,7 +742,7 @@
       font-size: 0.75rem;
       color: var(--tgg-ink-muted);
     }
-    /* Active card — border-only highlight, no background change */
+    /* Active card: border-only highlight, no background change */
     .problem-band .card.active {
       border-color: var(--tgg-purple);
       cursor: default;
@@ -789,7 +815,7 @@
     <div class="wrapper">
       <div class="section-head"><h2>What's underneath.</h2><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 8l10 6 10-6-10-6z"/><path d="M2 16l10 6 10-6"/><path d="M2 12l10 6 10-6"/></svg></div>
       <p><span class="pattern-name">Belief persistence (motivated reasoning).</span></p>
-      <p>Beliefs are sticky because they protect identity. Data doesn't win against identity-protective beliefs — naming the belief does.</p>
+      <p>Beliefs are sticky because they protect identity. Data doesn't win against identity-protective beliefs. Naming the belief does.</p>
       <p>Co-occurs with culture-vs-artifact gaps and decision avoidance.</p>
     </div>
   </section>
@@ -845,7 +871,7 @@
       <div class="section-head"><h2>What clients say.</h2><svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg></div>
       <div class="testimonials-row">
         <blockquote class="testimonial">
-          <p>"We were clear on our development focus for the year. What was much harder was identifying the right partner to work with—one that is innovative and nimble, could bring best practice and industry experience, and keep our team engaged and challenged. A tall order, and one that the Glinda Group knocked out of the park!"</p>
+          <p>"We were clear on our development focus for the year. What was much harder was identifying the right partner to work with, one that is innovative and nimble, could bring best practice and industry experience, and keep our team engaged and challenged. A tall order, and one that the Glinda Group knocked out of the park!"</p>
           <cite><strong>Sarah Waite</strong> · CHRO, Second Harvest Heartland</cite>
         </blockquote>
         <blockquote class="testimonial">
@@ -855,7 +881,7 @@
       </div>
     </div>
   </section>
-  <!-- ===== SCIENCE & WHIMSY — founders ===== -->
+  <!-- ===== SCIENCE & WHIMSY: founders ===== -->
   <section class="founders">
     <div class="wrapper">
       <div class="intro">
@@ -873,7 +899,7 @@
               <div class="founder-role">Co-Founder, CEO</div>
             </div>
           </div>
-          <p class="founder-bio">Laura's work is proof that you don't need a spotlight to create lasting change. From her years at Target to her leadership in tech and HR, she's helped build teams where people grow, businesses weather storms, and the numbers improve almost by accident — because people come first. She doesn't claim to have all the answers, but never stops searching for better ones.</p>
+          <p class="founder-bio">Laura's work is proof that you don't need a spotlight to create lasting change. From her years at Target to her leadership in tech and HR, she's helped build teams where people grow, businesses weather storms, and the numbers improve almost by accident, because people come first. She doesn't claim to have all the answers, but never stops searching for better ones.</p>
           <a class="founder-link" href="https://www.linkedin.com/in/lauraemartin1/" target="_blank" rel="noopener">Laura on LinkedIn →</a>
         </article>
 
@@ -957,7 +983,7 @@
 
 
 
-  <!-- ===== Problem band — horizontal strip (all 7 symptoms; current page highlighted via purple border, non-clickable) ===== -->
+  <!-- ===== Problem band: horizontal strip (all 7 symptoms; current page highlighted via purple border, non-clickable) ===== -->
   <section class="problem-band">
     <div class="wrapper">
       <p class="band-heading">What Else Hurts?</p>
@@ -1020,11 +1046,17 @@
     <div class="wrapper">
       <div class="signature">Kindness is Cooler than Coolness.</div>
       <div>The Glinda Group · Behavioral science with a sense of humor.</div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://glindagroup.com/" target="_blank" rel="noopener">Explore Glinda →</a>
+        <a class="sidepane-trigger" href="../../content/privacy.html" data-sidepane-title="Privacy Policy">Privacy Policy</a>
+        <a class="sidepane-trigger" href="../../content/terms.html" data-sidepane-title="Terms of Use">Terms of Use</a>
+      </nav>
+      <div class="footer-copyright">© 2026 The Glinda Group LLC. All rights reserved.</div>
     </div>
   </footer>
 
   <script>
-    // Lead form submit — writes to Firebase RTDB /leads/{push-id} if configured;
+    // Lead form submit. Writes to Firebase RTDB /leads/{push-id} if configured;
     // falls back to a friendly success message in degraded mode (placeholder config).
     //
     // UTM persistence (2026-05-15): UTMs are captured from the URL on every page
@@ -1037,7 +1069,7 @@
       var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
       // Stash any UTMs present in the URL into sessionStorage. Runs on every
-      // page load — last entry-with-UTMs wins per session.
+      // page load. Last entry-with-UTMs wins per session.
       (function persistUtms() {
         try {
           var qs = new URLSearchParams(window.location.search);
@@ -1049,7 +1081,7 @@
             if (v) hasAny = true;
           });
           if (hasAny) sessionStorage.setItem('glinda_utms', JSON.stringify(snapshot));
-        } catch (e) { /* sessionStorage unavailable — silent */ }
+        } catch (e) { /* sessionStorage unavailable, silent */ }
       })();
 
       function getUtm(key) {
@@ -1098,8 +1130,8 @@
         var dbUrl = cfg && cfg.databaseURL;
 
         if (!dbUrl || dbUrl.indexOf('TBD') !== -1) {
-          console.warn('[lead-form] Firebase not yet provisioned — degraded mode. Captured data:', data);
-          showStatus('success', "Thanks — we'll be in touch within one business day. (Note: backend not yet live; your submission was captured locally.)");
+          console.warn('[lead-form] Firebase not yet provisioned, degraded mode. Captured data:', data);
+          showStatus('success', "Thanks. We'll be in touch within one business day. (Backend not yet live, so your submission was captured locally.)");
           form.reset();
           return;
         }
@@ -1114,7 +1146,7 @@
             return res.json();
           })
           .then(function () {
-            showStatus('success', "Thanks — we'll be in touch within one business day.");
+            showStatus('success', "Thanks. We'll be in touch within one business day.");
             form.reset();
           })
           .catch(function (err) {
