@@ -22,6 +22,9 @@ import { initializeApp, getApp, getApps } from 'https://www.gstatic.com/firebase
 import {
   getDatabase, ref, push, update, remove, onValue
 } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
+import {
+  getAuth, onAuthStateChanged
+} from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
 
 // ============================================================
 // DEFAULT_LABELS — overlays cfg.REVIEW_LABELS at runtime.
@@ -322,7 +325,7 @@ function teardownDynamicAnchoring() {
 // Firebase RTDB adapter
 // ============================================================
 
-function initRtdb() {
+async function initRtdb() {
   const fcfg = state.cfg.FIREBASE_CONFIG;
   if (!fcfg || /^TBD/.test(fcfg.apiKey || '')) {
     state.db = null;
@@ -334,9 +337,23 @@ function initRtdb() {
     // into. Pre-auth-gate the widget created its own named 'review-widget'
     // app for isolation, but that app had no authenticated user, so once
     // the RTDB rules started requiring auth (2026-06-03) all reads/writes
-    // failed with permission_denied. Reusing the default app shares the
-    // signed-in session, so getDatabase() inherits the auth context.
+    // failed with permission_denied. Reusing the [DEFAULT] app and waiting
+    // for the modular SDK's Auth to load the persisted session (shared with
+    // the compat SDK in auth-gate.js via IndexedDB) ensures getDatabase()
+    // inherits the auth context.
     const app = getApps().length ? getApp() : initializeApp(fcfg);
+    const auth = getAuth(app);
+    // Wait for the modular Auth to read the persisted session (set by
+    // auth-gate.js's v9 compat SDK; the two share the same IndexedDB store
+    // keyed by authDomain).
+    const user = await new Promise((resolve) => {
+      const unsub = onAuthStateChanged(auth, (u) => { unsub(); resolve(u); });
+    });
+    if (!user) {
+      state.db = null;
+      showToast(state.LABELS.errorPrefix + 'not-signed-in');
+      return false;
+    }
     state.db = getDatabase(app);
     return true;
   } catch (err) {
@@ -1095,7 +1112,7 @@ export async function init({ basePath, config, configGlobalName }) {
   state.loadedAt = Date.now();
   state.sidebarOpen = window.innerWidth > 800;
 
-  initRtdb();
+  await initRtdb();
 
   mountBanner();
   mountSidebar();
