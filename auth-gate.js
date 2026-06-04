@@ -45,6 +45,8 @@
   var ALLOWLIST = [
     'jordan@glindagroup.com',
     'laura@glindagroup.com',
+    'milos.milosavljevic@glindagroup.com',
+    'milos.milosavljevic@nsc.agency',
     'team@2-human.com'
   ].map(function (e) { return e.toLowerCase(); });
 

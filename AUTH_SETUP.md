@@ -28,6 +28,8 @@ Three accounts are hard-coded into both:
 ```
 jordan@glindagroup.com
 laura@glindagroup.com
+milos.milosavljevic@glindagroup.com
+milos.milosavljevic@nsc.agency
 team@2-human.com
 ```
 
@@ -46,10 +48,10 @@ toggle the first switch **Enable** → **Save**.
 (Don't enable the "Email link (passwordless sign-in)" toggle below it
 — we're using passwords.)
 
-### 2. Create the three team accounts (~2 minutes)
+### 2. Create the team accounts (~3 minutes)
 
 Firebase Console → Authentication → **Users** tab →
-**Add user** button. For each of the three emails above:
+**Add user** button. For each of the five emails above:
 
 1. Email: e.g., `jordan@glindagroup.com`
 2. Password: pick a strong temporary password
