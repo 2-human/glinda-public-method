@@ -68,24 +68,34 @@
     + '.gg-modal-overlay.open .gg-modal-card { transform: translateY(0) scale(1); }'
     + '.gg-modal-header {'
     + '  flex: 0 0 auto;'
-    + '  display: flex; align-items: center; justify-content: space-between;'
+    + '  display: flex; align-items: center; justify-content: flex-start;'
     + '  padding: 0.85rem 1.25rem;'
     + '  border-bottom: 1px solid #CDDCDF;'
-    + '  position: relative; z-index: 3;'  /* keep above body iframe stack */
-    + '  background: #fff;'  /* prevent transparency if iframe peeks under */
+    + '  position: relative; z-index: 3;'
+    + '  background: #fff;'
     + '}'
     + '.gg-modal-brand img { height: 36px; width: auto; display: block; }'
+    /* Close button — fixed-position OUTSIDE the modal card, top-right of
+       the overlay. Calendly's iframe cannot reach this stacking context
+       and its own back/close affordances render inside the iframe far
+       below this point. */
     + '.gg-modal-close {'
-    + '  background: transparent; border: 0;'
-    + '  width: 36px; height: 36px; border-radius: 50%;'
+    + '  position: fixed;'
+    + '  top: 1.1rem; right: 1.1rem;'
+    + '  width: 44px; height: 44px; border-radius: 50%;'
+    + '  background: #fff;'
+    + '  border: 0;'
+    + '  box-shadow: 0 6px 18px rgba(0,0,0,0.30), 0 0 0 1px rgba(0,0,0,0.05);'
+    + '  z-index: 10001;'
     + '  display: flex; align-items: center; justify-content: center;'
-    + '  cursor: pointer; color: #7E8C9F;'
-    + '  transition: background 0.15s, color 0.15s;'
+    + '  cursor: pointer; color: #41505A;'
+    + '  transition: transform 0.15s, background 0.15s, color 0.15s;'
     + '  padding: 0;'
+    + '  -webkit-tap-highlight-color: transparent;'
     + '}'
-    + '.gg-modal-close:hover { background: #EFF5F7; color: #8705E4; }'
-    + '.gg-modal-close:focus-visible { outline: 2px solid #8705E4; outline-offset: 2px; }'
-    + '.gg-modal-close svg { width: 20px; height: 20px; fill: currentColor; }'
+    + '.gg-modal-close:hover { background: #8705E4; color: #fff; transform: scale(1.06); }'
+    + '.gg-modal-close:focus-visible { outline: 2px solid #8705E4; outline-offset: 3px; }'
+    + '.gg-modal-close svg { width: 22px; height: 22px; fill: currentColor; pointer-events: none; }'
     + '.gg-modal-intro {'
     + '  flex: 0 0 auto;'
     + "  font-family: 'Open Sans', system-ui, sans-serif;"
@@ -187,15 +197,21 @@
 
     var calendlyUrl = buildCalendlyUrl();
 
+    // Close button sits OUTSIDE the card (direct child of overlay) so that
+    // the card's `transform` doesn't create a containing block for the
+    // button's `position: fixed`. This keeps the X anchored to the viewport
+    // top-right at all times, on a separate stacking layer well above the
+    // Calendly iframe — Calendly's own back/cancel UI cannot reach this
+    // pixel space.
     overlay.innerHTML = ''
+      + '<button type="button" class="gg-modal-close" aria-label="Close booking dialog">'
+      + '  <svg viewBox="0 0 24 24" aria-hidden="true">'
+      + '    <path d="M18.3 5.71L12 12.01l-6.3-6.3-1.4 1.41 6.29 6.29-6.29 6.29 1.4 1.41 6.3-6.29 6.3 6.29 1.41-1.41-6.29-6.29 6.29-6.29z"></path>'
+      + '  </svg>'
+      + '</button>'
       + '<div class="gg-modal-card">'
       + '  <header class="gg-modal-header">'
       + '    <div class="gg-modal-brand"><img src="' + BASE + 'files/logo.svg" alt="The Glinda Group"></div>'
-      + '    <button type="button" class="gg-modal-close" aria-label="Close booking dialog">'
-      + '      <svg viewBox="0 0 24 24" aria-hidden="true">'
-      + '        <path d="M18.3 5.71L12 12.01l-6.3-6.3-1.4 1.41 6.29 6.29-6.29 6.29 1.4 1.41 6.3-6.29 6.3 6.29 1.41-1.41-6.29-6.29 6.29-6.29z"></path>'
-      + '      </svg>'
-      + '    </button>'
       + '  </header>'
       + '  <p class="gg-modal-intro" id="gg-modal-intro-text">'
       + '    <strong>Tell us where it hurts:</strong> 30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into.'
