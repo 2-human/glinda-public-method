@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Book a call · The Glinda Group</title>
-  <meta name="description" content="30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's underneath, and what an intervention would look like.">
+  <meta name="description" content="30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's underneath.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://engage.glindagroup.com/book-a-call/">
   <meta property="og:title" content="Book a call · The Glinda Group">
-  <meta property="og:description" content="30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's underneath, and what an intervention would look like.">
+  <meta property="og:description" content="30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's underneath.">
   <meta property="og:image" content="https://engage.glindagroup.com/files/og-home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:site_name" content="The Glinda Group">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Book a call · The Glinda Group">
-  <meta name="twitter:description" content="30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's underneath, and what an intervention would look like.">
+  <meta name="twitter:description" content="30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's underneath.">
   <meta name="twitter:image" content="https://engage.glindagroup.com/files/og-home.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,8 +25,6 @@
   <link rel="icon" type="image/png" sizes="300x300" href="../files/favicon-300.png">
   <link rel="icon" type="image/png" sizes="150x150" href="../files/favicon-150.png">
 
-  <!-- auth-gate.js conditionally injects the review-widget for allow-listed
-       team members; public visitors see no widget references in source. -->
   <script src="../auth-gate.js" defer></script>
 
   <style>
@@ -45,52 +43,35 @@
       --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
     body {
       font-family: var(--font-body);
-      line-height: 1.55;
+      line-height: 1.5;
       color: var(--tgg-ink);
-      /* Backdrop — purple/navy gradient that recalls the home hero, with a
-         dark-overlay treatment so the page reads as a modal-over-something. */
-      background:
-        linear-gradient(180deg, rgba(1,5,94,0.78), rgba(1,5,94,0.92)),
-        linear-gradient(135deg, var(--tgg-purple), var(--tgg-navy));
-      background-attachment: fixed;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      padding: 2rem 1rem 3rem;
-    }
-
-    /* ---------- Modal card ---------- */
-    .modal-card {
-      max-width: 720px;
-      margin: 0 auto;
       background: #fff;
-      border-radius: 16px;
-      box-shadow:
-        0 25px 50px -12px rgba(0, 0, 0, 0.35),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
-      overflow: hidden;
-      animation: modalEnter 0.35s var(--ease-out) both;
-    }
-    @keyframes modalEnter {
-      from { opacity: 0; transform: translateY(20px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0)    scale(1);    }
+      -webkit-font-smoothing: antialiased;
+      /* Use dvh on supporting browsers so mobile address-bar collapse doesn't
+         break the layout */
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ---------- Modal header (brand + close) ---------- */
+    /* ---------- Header (logo + close) ---------- */
     .modal-header {
+      flex: 0 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.1rem 1.25rem 0.85rem;
+      padding: 0.85rem 1.25rem;
       border-bottom: 1px solid var(--tgg-hairline);
+      background: #fff;
     }
-    .modal-brand {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
+    .modal-brand { display: flex; align-items: center; text-decoration: none; }
     .modal-brand img { height: 40px; width: auto; }
     .modal-close {
       background: transparent;
@@ -110,118 +91,119 @@
     }
     .modal-close svg { width: 20px; height: 20px; fill: currentColor; }
 
-    /* ---------- Modal hero ---------- */
+    /* ---------- Hero (compact, single screen) ---------- */
     .modal-hero {
-      padding: 2.25rem 2rem 1.5rem;
+      flex: 0 0 auto;
       text-align: center;
+      padding: 1.15rem 1.25rem 0.85rem;
     }
     .modal-hero h1 {
       font-family: var(--font-display);
-      font-size: clamp(1.9rem, 4.5vw, 2.8rem);
+      font-size: clamp(1.5rem, 3.2vw, 2.1rem);
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.1;
       color: var(--tgg-purple);
       letter-spacing: -0.01em;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.35rem;
     }
     .modal-hero p.sub {
-      font-size: 1.05rem;
-      max-width: 540px;
+      font-size: 0.95rem;
+      max-width: 600px;
       margin: 0 auto;
       color: var(--tgg-ink);
-      line-height: 1.5;
+      line-height: 1.45;
     }
 
-    /* ---------- Calendly embed inside the modal ---------- */
+    /* ---------- Calendly fills remaining viewport ---------- */
     .modal-calendar {
-      padding: 0.5rem 0.75rem 1rem;
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 0.5rem 1rem 0.75rem;
+      overflow: hidden;
     }
     .calendly-inline-widget {
-      min-width: 320px;
-      /* Sized to accommodate Calendly's tallest internal view (the booking
-         form after picking a time) without internal scroll. */
-      height: 1050px;
       width: 100%;
-      border-radius: 12px;
+      height: 100%;
+      min-width: 320px;
+      border-radius: 8px;
       overflow: hidden;
-      background: var(--tgg-tint-cream);
-    }
-    @media (max-width: 800px) {
-      .calendly-inline-widget { height: 1180px; }
     }
 
-    /* ---------- Mobile ---------- */
-    @media (max-width: 600px) {
-      body { padding: 0.75rem 0.5rem 1.5rem; }
-      .modal-card { border-radius: 12px; }
-      .modal-header { padding: 0.85rem 1rem 0.7rem; }
-      .modal-brand img { height: 32px; }
-      .modal-hero { padding: 1.5rem 1.25rem 1rem; }
-      .modal-calendar { padding: 0.25rem 0.4rem 0.75rem; }
+    /* ---------- Mobile compaction ----------
+       Shorter hero / smaller logo so Calendly has more room.
+       The viewport-fit=cover meta + safe-area-inset padding stops
+       iOS from clipping under the home indicator. */
+    @media (max-width: 640px) {
+      .modal-header {
+        padding: 0.55rem 0.85rem;
+        padding-top: max(0.55rem, env(safe-area-inset-top));
+      }
+      .modal-brand img { height: 30px; }
+      .modal-close { width: 32px; height: 32px; }
+      .modal-hero {
+        padding: 0.7rem 0.85rem 0.5rem;
+      }
+      .modal-hero p.sub {
+        font-size: 0.9rem;
+        max-width: none;
+      }
+      .modal-calendar {
+        padding: 0.35rem 0.5rem;
+        padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+      }
+    }
+
+    /* Very small viewports — hide the sub so Calendly gets a full screen */
+    @media (max-height: 700px) {
+      .modal-hero p.sub { display: none; }
+      .modal-hero { padding-bottom: 0.4rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <header class="modal-header">
+    <a class="modal-brand" href="../" aria-label="Back to Glinda home">
+      <img src="../files/logo.svg" alt="The Glinda Group">
+    </a>
+    <button
+      type="button"
+      class="modal-close"
+      aria-label="Close"
+      id="modal-close-btn"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.3 5.71L12 12.01l-6.3-6.3-1.4 1.41 6.29 6.29-6.29 6.29 1.4 1.41 6.3-6.29 6.3 6.29 1.41-1.41-6.29-6.29 6.29-6.29z"></path>
+      </svg>
+    </button>
+  </header>
 
-    <!-- ===== Modal header: brand + close ===== -->
-    <header class="modal-header">
-      <a class="modal-brand" href="../" aria-label="Back to Glinda home">
-        <img src="../files/logo.svg" alt="The Glinda Group">
-      </a>
-      <button
-        type="button"
-        class="modal-close"
-        aria-label="Close"
-        id="modal-close-btn"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M18.3 5.71L12 12.01l-6.3-6.3-1.4 1.41 6.29 6.29-6.29 6.29 1.4 1.41 6.3-6.29 6.3 6.29 1.41-1.41-6.29-6.29 6.29-6.29z"></path>
-        </svg>
-      </button>
-    </header>
+  <section class="modal-hero" role="dialog" aria-labelledby="modal-title">
+    <h1 id="modal-title">Tell us where it hurts.</h1>
+    <p class="sub">30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into.</p>
+  </section>
 
-    <!-- ===== Hero copy ===== -->
-    <section class="modal-hero">
-      <h1 id="modal-title">Tell us where it hurts.</h1>
-      <p class="sub">30 minutes with Jordan or Laura. Bring one specific pattern your team keeps running into. We'll show you what's likely underneath — and what an intervention would look like for your context.</p>
-    </section>
+  <section class="modal-calendar" id="schedule">
+    <div
+      class="calendly-inline-widget"
+      data-url="https://calendly.com/d/dzzp-tx7-qp3/see-what-s-possible-with-glinda?primary_color=8705e4&text_color=01055e&background_color=ffffff&hide_landing_page_details=1&hide_gdpr_banner=1"
+    ></div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </section>
 
-    <!-- ===== Calendly inline embed ===== -->
-    <section class="modal-calendar" id="schedule">
-      <!-- Calendly inline widget begin -->
-      <div
-        class="calendly-inline-widget"
-        data-url="https://calendly.com/d/dzzp-tx7-qp3/see-what-s-possible-with-glinda?primary_color=8705e4&text_color=01055e&background_color=ffffff&hide_landing_page_details=1"
-      ></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      <!-- Calendly inline widget end -->
-    </section>
-
-  </div>
-
-  <!-- ===== UTM passthrough (forwards utm_* onto the Calendly embed URL) ===== -->
+  <!-- UTM passthrough -->
   <script>
     (function () {
       var UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
-
       function readUtmFromUrl() {
-        var bundle = {};
-        var params = new URLSearchParams(window.location.search);
-        UTM_KEYS.forEach(function (k) {
-          var v = params.get(k);
-          if (v) bundle[k] = v;
-        });
+        var bundle = {}, params = new URLSearchParams(window.location.search);
+        UTM_KEYS.forEach(function (k) { var v = params.get(k); if (v) bundle[k] = v; });
         return bundle;
       }
       function readUtmFromSession() {
         var bundle = {};
         UTM_KEYS.forEach(function (k) {
-          try {
-            var v = sessionStorage.getItem(k);
-            if (v) bundle[k] = v;
-          } catch (e) {}
+          try { var v = sessionStorage.getItem(k); if (v) bundle[k] = v; } catch (e) {}
         });
         return bundle;
       }
@@ -230,20 +212,15 @@
           try { sessionStorage.setItem(k, bundle[k]); } catch (e) {}
         });
       }
-
-      var fromUrl     = readUtmFromUrl();
-      var fromSession = readUtmFromSession();
+      var fromUrl = readUtmFromUrl(), fromSession = readUtmFromSession();
       var bundle = Object.assign({}, fromSession, fromUrl);
       persistUtm(fromUrl);
-
       var widget = document.querySelector('.calendly-inline-widget');
       if (!widget) return;
       var url = widget.getAttribute('data-url');
       if (!url) return;
-
       var keys = Object.keys(bundle);
       if (keys.length === 0) return;
-
       var sep = url.indexOf('?') >= 0 ? '&' : '?';
       var extra = keys.map(function (k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(bundle[k]);
@@ -252,16 +229,12 @@
     })();
   </script>
 
-  <!-- ===== Close-button behavior ===== -->
+  <!-- Close button + Escape -->
   <script>
     (function () {
       var btn = document.getElementById('modal-close-btn');
       if (!btn) return;
-
       function dismiss() {
-        // Prefer history back if the user came from another site page —
-        // returns them to whatever they were reading. Otherwise fall back
-        // to the home page.
         if (window.history.length > 1 && document.referrer &&
             document.referrer.indexOf(window.location.host) !== -1) {
           window.history.back();
@@ -270,15 +243,8 @@
         }
       }
       btn.addEventListener('click', dismiss);
-
-      // Escape key also closes.
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') dismiss();
-      });
-
-      // Clicking the backdrop (outside the modal card) also closes.
-      document.body.addEventListener('click', function (e) {
-        if (e.target === document.body) dismiss();
       });
     })();
   </script>
