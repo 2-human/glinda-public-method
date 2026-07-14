@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" sizes="300x300" href="../../files/favicon-300.png">
+<title>Posting calendar · Glinda LinkedIn · team only</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --li-bg:#f4f2ee; --li-card:#fff; --li-blue:#0a66c2; --li-text:#38434f; --li-text-muted:#5e6b78;
+         --li-border:#e0dfdc; --li-divider:#e9e5df; --tgg-purple:#8705E4; --tgg-navy:#01055E; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+       background:var(--li-bg);color:var(--li-text);line-height:1.43;font-size:14px}
+  .topbar{background:linear-gradient(135deg,var(--tgg-purple),var(--tgg-navy));color:#fff;padding:1.4rem 1.5rem}
+  .topbar .wrap{max-width:1000px;margin:0 auto}
+  .topbar .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .topbar h1{font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+  .topbar p{font-size:.95rem;opacity:.9;margin-top:.25rem}
+  .topbar a{color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;opacity:.92}
+  .topbar a:hover{opacity:1;text-decoration:underline}
+  .cal-wrap{max-width:1000px;margin:0 auto;padding:22px 16px 60px}
+  .cal-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--li-text-muted);margin:2px 0 22px}
+  .cal-legend .sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  .month{margin-bottom:26px}
+  .month h2{font-size:1.05rem;margin:0 0 10px;color:var(--li-text)}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+  .dow{font-size:11px;font-weight:700;color:var(--li-text-muted);text-transform:uppercase;text-align:center;padding:2px 0}
+  .cell{min-height:82px;border:1px solid var(--li-border);border-radius:8px;padding:6px;background:#fff;position:relative}
+  .cell.empty{background:#faf9f7;border-style:dashed}
+  .cell .dnum{font-size:11px;color:var(--li-text-muted);position:absolute;top:5px;right:8px}
+  .cell.today{outline:2px solid var(--tgg-purple);outline-offset:0}
+  .cell .post{margin-top:18px;font-size:11.5px;line-height:1.28}
+  .cell .bias{font-weight:700;color:var(--li-text);display:block}
+  .cell .v{display:inline-block;font-size:10px;font-weight:700;color:#fff;border-radius:999px;padding:1px 7px;margin-top:4px}
+  .v1{background:#8705E4}.v2{background:#01055E}.v3{background:#0a66c2}.v4{background:#b5179e}.v5{background:#3a0ca3}
+  .cell.published{background:#f0fbf4;border-color:#bfe6cc}
+  .cell.published .v{opacity:.5}
+  .pub{display:block;font-size:10px;font-weight:700;color:#0a7d33;margin-top:3px}
+  body.page-locked .cal-wrap,body.page-locked .topbar .row{visibility:hidden}
+  body.page-locked::before{content:"Signing you in…";position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:#5e6b78;font-size:15px}
+</style>
+<script type="module">
+  import { initializeApp, getApp, getApps } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
+  import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
+
+  const FIREBASE_CONFIG = {
+    apiKey:            "AIzaSyAC3f0IH9-s7XU9fTE3jbk7Bhfn20uTIdY",
+    authDomain:        "glinda-website.firebaseapp.com",
+    databaseURL:       "https://glinda-website-default-rtdb.firebaseio.com",
+    projectId:         "glinda-website",
+    storageBucket:     "glinda-website.firebasestorage.app",
+    messagingSenderId: "244199801855",
+    appId:             "1:244199801855:web:82838197aab888d894ddca",
+    measurementId:     "G-R8YJ0J0FC2"
+  };
+  const ALLOWLIST = [
+    'jordan@glindagroup.com',
+    'laura@glindagroup.com',
+    'milos.milosavljevic@glindagroup.com',
+    'milos.milosavljevic@nsc.agency',
+    'team@2-human.com'
+  ];
+
+  const app  = getApps().length ? getApp() : initializeApp(FIREBASE_CONFIG);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    const email = ((user && user.email) || '').toLowerCase();
+    if (!user || !ALLOWLIST.includes(email)) {
+      window.location.replace('../../login/');
+      return;
+    }
+    document.body.classList.remove('page-locked');
+    const el = document.getElementById('signed-in-email');
+    if (el) el.textContent = email;
+  });
+</script>
+<script src="../../auth-gate.js" defer></script>
+</head>
+<body class="page-locked">
+<header class="topbar">
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <h1>Posting calendar — JA(d)M bias articles</h1>
+        <p>1 post/day · 50 days · variant-major cycle. <span id="signed-in-email"></span></p>
+      </div>
+      <a href="index.html">← Back to campaign hub</a>
+    </div>
+  </div>
+</header>
+<main class="cal-wrap">
+  <div class="cal-legend">
+    <span><span class="sw v1"></span>Variant 1</span>
+    <span><span class="sw v2"></span>Variant 2</span>
+    <span><span class="sw v3"></span>Variant 3</span>
+    <span><span class="sw v4"></span>Variant 4</span>
+    <span><span class="sw v5"></span>Variant 5</span>
+    <span><span class="sw" style="background:#bfe6cc"></span>Published</span>
+    <span><span class="sw" style="background:#fff;border:2px solid var(--tgg-purple)"></span>Today</span>
+  </div>
+  <div id="cal"></div>
+</main>
+<script>
+  const START = "2026-07-14";
+  const PUBLISHED = 1;
+  const SCHEDULE = [{"d": 1, "slug": "affect-heuristic", "label": "Affect Heuristic", "chip": "Affect", "v": 1, "hook": "You want the donut. You also don't want the donut. That's every hard call your team makes."}, {"d": 2, "slug": "confirmation-bias", "label": "Confirmation Bias", "chip": "Confirmation", "v": 1, "hook": "You're not gathering evidence. You're building a defense."}, {"d": 3, "slug": "loss-aversion", "label": "Loss Aversion", "chip": "Loss Aversion", "v": 1, "hook": "Ask any coach: the hatred of losing beats the love of winning. Every time."}, {"d": 4, "slug": "sunk-cost-fallacy", "label": "Sunk Cost Fallacy", "chip": "Sunk Cost", "v": 1, "hook": "The captain goes down with the ship. So does your org — with its worst project."}, {"d": 5, "slug": "halo-horns-effect", "label": "The Halo / Horns Effect", "chip": "Halo/Horns", "v": 1, "hook": "One great trait, and suddenly they can do no wrong. That's the halo effect — and it's costing you."}, {"d": 6, "slug": "escalation-of-commitment", "label": "Escalation of Commitment", "chip": "Escalation", "v": 1, "hook": "When does grit become insanity? When the evidence says stop and you double down anyway."}, {"d": 7, "slug": "planning-fallacy", "label": "Planning Fallacy", "chip": "Planning", "v": 1, "hook": "Add one word to \"behind schedule and over budget\": predictably."}, {"d": 8, "slug": "status-quo-bias", "label": "Status Quo Bias", "chip": "Status Quo", "v": 1, "hook": "Sears. Kodak. Blockbuster. BlackBerry. Each one chose the comfortable \"no.\""}, {"d": 9, "slug": "availability-heuristic", "label": "Availability Heuristic", "chip": "Availability", "v": 1, "hook": "The last thing that went wrong feels like the most likely thing to go wrong. It usually isn't."}, {"d": 10, "slug": "overconfidence-bias", "label": "Overconfidence Bias", "chip": "Overconfidence", "v": 1, "hook": "\"Often wrong, never in doubt\" isn't a personality. It's a bias — and it's expensive."}, {"d": 11, "slug": "affect-heuristic", "label": "Affect Heuristic", "chip": "Affect", "v": 2, "hook": "You didn't hire the best candidate. You hired the one you liked."}, {"d": 12, "slug": "confirmation-bias", "label": "Confirmation Bias", "chip": "Confirmation", "v": 2, "hook": "Confirmation bias isn't about being dumb. It's about being safe."}, {"d": 13, "slug": "loss-aversion", "label": "Loss Aversion", "chip": "Loss Aversion", "v": 2, "hook": "Blockbuster didn't die from streaming. It died protecting late fees."}, {"d": 14, "slug": "sunk-cost-fallacy", "label": "Sunk Cost Fallacy", "chip": "Sunk Cost", "v": 2, "hook": "\"We've come too far to stop now\" is the most expensive sentence in business."}, {"d": 15, "slug": "halo-horns-effect", "label": "The Halo / Horns Effect", "chip": "Halo/Horns", "v": 2, "hook": "The halo effect is why your best salesperson just became your worst manager."}, {"d": 16, "slug": "escalation-of-commitment", "label": "Escalation of Commitment", "chip": "Escalation", "v": 2, "hook": "The Concorde was beautiful, brilliant, and losing money on every flight for years."}, {"d": 17, "slug": "planning-fallacy", "label": "Planning Fallacy", "chip": "Planning", "v": 2, "hook": "The Big Dig. Denver Airport. Berlin Brandenburg. All \"on track\" once, too."}, {"d": 18, "slug": "status-quo-bias", "label": "Status Quo Bias", "chip": "Status Quo", "v": 2, "hook": "Your instincts are always safe. They are not always correct."}, {"d": 19, "slug": "availability-heuristic", "label": "Availability Heuristic", "chip": "Availability", "v": 2, "hook": "Your team is solving last quarter's crisis. Again."}, {"d": 20, "slug": "overconfidence-bias", "label": "Overconfidence Bias", "chip": "Overconfidence", "v": 2, "hook": "Kahneman studied 8,000 traders and found zero skill carrying from one year to the next. Zero."}, {"d": 21, "slug": "affect-heuristic", "label": "Affect Heuristic", "chip": "Affect", "v": 3, "hook": "Ninety percent of your decisions are made before you think about them."}, {"d": 22, "slug": "confirmation-bias", "label": "Confirmation Bias", "chip": "Confirmation", "v": 3, "hook": "Want a superpower? Go find the data that proves you wrong."}, {"d": 23, "slug": "loss-aversion", "label": "Loss Aversion", "chip": "Loss Aversion", "v": 3, "hook": "A team with a big lead starts playing not to lose. So does a team with a big budget."}, {"d": 24, "slug": "sunk-cost-fallacy", "label": "Sunk Cost Fallacy", "chip": "Sunk Cost", "v": 3, "hook": "Every doomed project has a hero defending it — usually the person who started it."}, {"d": 25, "slug": "halo-horns-effect", "label": "The Halo / Horns Effect", "chip": "Halo/Horns", "v": 3, "hook": "Your quietest employee isn't underperforming. They're being under-read."}, {"d": 26, "slug": "escalation-of-commitment", "label": "Escalation of Commitment", "chip": "Escalation", "v": 3, "hook": "\"We just need to push harder\" — said every leader right before the write-off."}, {"d": 27, "slug": "planning-fallacy", "label": "Planning Fallacy", "chip": "Planning", "v": 3, "hook": "Whatever your team estimated, multiply it by three. Now decide."}, {"d": 28, "slug": "status-quo-bias", "label": "Status Quo Bias", "chip": "Status Quo", "v": 3, "hook": "The bigger the org, the taller the wall around the way things are."}, {"d": 29, "slug": "availability-heuristic", "label": "Availability Heuristic", "chip": "Availability", "v": 3, "hook": "One competitor's headline can quietly rewrite your entire roadmap."}, {"d": 30, "slug": "overconfidence-bias", "label": "Overconfidence Bias", "chip": "Overconfidence", "v": 3, "hook": "Theranos didn't fail from a lack of confidence. It failed from a surplus."}, {"d": 31, "slug": "affect-heuristic", "label": "Affect Heuristic", "chip": "Affect", "v": 4, "hook": "Strip emotion out of your decisions and you'll make brilliant ones. You'll also be a Vulcan."}, {"d": 32, "slug": "confirmation-bias", "label": "Confirmation Bias", "chip": "Confirmation", "v": 4, "hook": "The Emperor had no clothes because nobody was paid to see the fabric."}, {"d": 33, "slug": "loss-aversion", "label": "Loss Aversion", "chip": "Loss Aversion", "v": 4, "hook": "We overvalue whatever we already own — including our own bad strategy."}, {"d": 34, "slug": "sunk-cost-fallacy", "label": "Sunk Cost Fallacy", "chip": "Sunk Cost", "v": 4, "hook": "You finished the terrible movie because you paid for the ticket. Your org does that with strategy."}, {"d": 35, "slug": "halo-horns-effect", "label": "The Halo / Horns Effect", "chip": "Halo/Horns", "v": 4, "hook": "In the C-suite, one success makes an idea untouchable. One failure makes it radioactive."}, {"d": 36, "slug": "escalation-of-commitment", "label": "Escalation of Commitment", "chip": "Escalation", "v": 4, "hook": "Your team keeps funding the failing initiative because stopping would prove they were wrong."}, {"d": 37, "slug": "planning-fallacy", "label": "Planning Fallacy", "chip": "Planning", "v": 4, "hook": "Your best people are burning out to hit a number someone guessed in a meeting."}, {"d": 38, "slug": "status-quo-bias", "label": "Status Quo Bias", "chip": "Status Quo", "v": 4, "hook": "BlackBerry looked at the iPhone and doubled down on the keyboard."}, {"d": 39, "slug": "availability-heuristic", "label": "Availability Heuristic", "chip": "Availability", "v": 4, "hook": "You remember the one time the risky bet paid off. You forget the ten times it didn't."}, {"d": 40, "slug": "overconfidence-bias", "label": "Overconfidence Bias", "chip": "Overconfidence", "v": 4, "hook": "How much of your plan depends on you being at your best?"}, {"d": 41, "slug": "affect-heuristic", "label": "Affect Heuristic", "chip": "Affect", "v": 5, "hook": "You're scared of the plane. You should be scared of the drive to the airport."}, {"d": 42, "slug": "confirmation-bias", "label": "Confirmation Bias", "chip": "Confirmation", "v": 5, "hook": "Every team has a favorite answer. Few have looked for its opposite."}, {"d": 43, "slug": "loss-aversion", "label": "Loss Aversion", "chip": "Loss Aversion", "v": 5, "hook": "You're not weighing risk against reward. You're weighing fear against fear."}, {"d": 44, "slug": "sunk-cost-fallacy", "label": "Sunk Cost Fallacy", "chip": "Sunk Cost", "v": 5, "hook": "If you were starting today, would you still choose this?"}, {"d": 45, "slug": "halo-horns-effect", "label": "The Halo / Horns Effect", "chip": "Halo/Horns", "v": 5, "hook": "What do you actually know — and what are you just assuming from it?"}, {"d": 46, "slug": "escalation-of-commitment", "label": "Escalation of Commitment", "chip": "Escalation", "v": 5, "hook": "What metric would prove this isn't working — and have you already blown past it?"}, {"d": 47, "slug": "planning-fallacy", "label": "Planning Fallacy", "chip": "Planning", "v": 5, "hook": "The people who know how long it really takes are the ones not in the room."}, {"d": 48, "slug": "status-quo-bias", "label": "Status Quo Bias", "chip": "Status Quo", "v": 5, "hook": "If you were building this from scratch today, would you build what you have?"}, {"d": 49, "slug": "availability-heuristic", "label": "Availability Heuristic", "chip": "Availability", "v": 5, "hook": "What's dominating the room right now — and how much is it distorting the call?"}, {"d": 50, "slug": "overconfidence-bias", "label": "Overconfidence Bias", "chip": "Overconfidence", "v": 5, "hook": "Still worth doing if it underperforms by 30%? By 50%?"}];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+  function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+  function dateForDay(n){ const s=new Date(START+'T00:00:00'); s.setDate(s.getDate()+(n-1)); return s; }
+
+  // map ISO date -> schedule item
+  const byDate = {};
+  SCHEDULE.forEach(it => { byDate[iso(dateForDay(it.d))] = it; });
+
+  const todayISO = iso(new Date());
+  const startD = new Date(START+'T00:00:00');
+  const endD = dateForDay(SCHEDULE.length);
+
+  function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+  function renderMonth(year, month){
+    const first = new Date(year, month, 1);
+    const lead = first.getDay();
+    const days = new Date(year, month+1, 0).getDate();
+    let cells = '';
+    for(let i=0;i<lead;i++) cells += '<div class="cell empty"></div>';
+    for(let day=1; day<=days; day++){
+      const dt = new Date(year, month, day);
+      const key = iso(dt);
+      const it = byDate[key];
+      let cls = 'cell', inner = '<span class="dnum">'+day+'</span>';
+      if(!it){ cls += ' empty'; }
+      else {
+        if(it.d <= PUBLISHED) cls += ' published';
+        inner += '<div class="post" title="'+esc(it.hook)+'">'
+               + '<span class="bias">'+esc(it.chip)+'</span>'
+               + '<span class="v v'+it.v+'">v'+it.v+'</span>'
+               + (it.d<=PUBLISHED ? '<span class="pub">✓ Posted</span>' : '')
+               + '</div>';
+      }
+      if(key===todayISO) cls += ' today';
+      cells += '<div class="'+cls+'">'+inner+'</div>';
+    }
+    return '<div class="month"><h2>'+MONTHS[month]+' '+year+'</h2>'
+         + '<div class="grid">'+DOW.map(d=>'<div class="dow">'+d+'</div>').join('')
+         + cells + '</div></div>';
+  }
+
+  // render every month spanned by the campaign
+  const cal = document.getElementById('cal');
+  let y = startD.getFullYear(), m = startD.getMonth();
+  let html = '';
+  while (y < endD.getFullYear() || (y===endD.getFullYear() && m <= endD.getMonth())){
+    html += renderMonth(y, m);
+    m++; if(m>11){ m=0; y++; }
+  }
+  cal.innerHTML = html;
+</script>
+</body>
+</html>

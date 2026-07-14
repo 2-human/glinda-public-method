@@ -243,6 +243,24 @@
   .topbar-auth a { color: rgba(255,255,255,0.85); text-decoration: underline; }
   .topbar-auth a:hover { color: #fff; }
 
+  /* --- Campaign tabs --- */
+  .tabs { display:flex; gap:6px; margin-bottom:12px; }
+  .tab { background:rgba(255,255,255,0.12); color:#fff; border:none; font-family:inherit; font-weight:600; font-size:.9rem; padding:.55rem 1.1rem; border-radius:8px; cursor:pointer; opacity:.85; transition:background .15s,opacity .15s; }
+  .tab:hover { opacity:1; }
+  .tab.active { background:#fff; color:var(--tgg-navy); opacity:1; }
+  .filters[hidden] { display:none; }
+
+  /* --- Article post additions --- */
+  .day-badge { display:inline-block; background:var(--tgg-purple); color:#fff; font-size:11px; font-weight:700; letter-spacing:.02em; padding:3px 10px; border-radius:999px; margin:14px 0 -4px 16px; }
+  .post-image { border-top:1px solid var(--li-border); background:#eef3f8; }
+  .post-image img { display:block; width:100%; height:auto; }
+  .post-cta { margin:10px 0; }
+  .post-cta a { color:var(--li-blue); word-break:break-all; }
+  .post-boiler-h { font-weight:700; margin:16px 0 2px; color:var(--li-text); }
+  .post-questions { margin:6px 0 0; line-height:1.7; }
+  .article-divider { }
+
+
 </style>
 
 <script type="module">
@@ -312,8 +330,13 @@
       · <a href="../../logout/">Logout</a>
     </div>
     <h1>Glinda LinkedIn campaign — team preview</h1>
-    <p>21 posts across 7 landing pages × 3 voices. Filter to compare. Click the floating Comments button (bottom-right) to leave feedback on any post.</p>
-    <div class="filters">
+    <p>Two campaigns, two tabs. <strong>Biases &amp; Heuristics</strong> — 50 company-page posts (utm_campaign=biases_heuristics_2026). <strong>LP promotion</strong> — 21 posts across 3 voices (utm_campaign=engage_glinda). Click the floating Comments button (bottom-right) to leave feedback on any post.</p>
+    <p style="margin-top:8px"><a href="calendar.html" style="color:#fff;font-weight:700;text-decoration:underline">📅 Open the posting calendar →</a></p>
+    <div class="tabs">
+      <button class="tab active" data-tab="article">Biases &amp; Heuristics · 50</button>
+      <button class="tab" data-tab="lp">LP promotion · 21</button>
+    </div>
+    <div class="filters" data-for="lp" hidden>
       <div class="filter-group">
         <span class="label">Author</span>
         <button class="chip active" data-filter="author" data-value="all">All</button>
@@ -331,6 +354,22 @@
         <button class="chip" data-filter="lp" data-value="silos-collaborationnation">Silos</button>
         <button class="chip" data-filter="lp" data-value="leadership-totmty">Leaders</button>
         <button class="chip" data-filter="lp" data-value="attitudes-safetydance">Attitudes</button>
+      </div>
+    </div>
+    <div class="filters" data-for="article">
+      <div class="filter-group">
+        <span class="label">Article</span>
+        <button class="chip active" data-filter="article" data-value="all">All</button>
+        <button class="chip" data-filter="article" data-value="affect-heuristic">Affect</button>
+        <button class="chip" data-filter="article" data-value="confirmation-bias">Confirmation</button>
+        <button class="chip" data-filter="article" data-value="loss-aversion">Loss Aversion</button>
+        <button class="chip" data-filter="article" data-value="sunk-cost-fallacy">Sunk Cost</button>
+        <button class="chip" data-filter="article" data-value="halo-horns-effect">Halo/Horns</button>
+        <button class="chip" data-filter="article" data-value="escalation-of-commitment">Escalation</button>
+        <button class="chip" data-filter="article" data-value="planning-fallacy">Planning</button>
+        <button class="chip" data-filter="article" data-value="status-quo-bias">Status Quo</button>
+        <button class="chip" data-filter="article" data-value="availability-heuristic">Availability</button>
+        <button class="chip" data-filter="article" data-value="overconfidence-bias">Overconfidence</button>
       </div>
     </div>
   </div>
@@ -420,6 +459,72 @@
       urlBase: 'https://engage.glindagroup.com/attitudes-safetydance/',
     },
   };
+
+  const ARTICLES = {
+    "affect-heuristic": { label: "Affect Heuristic", chip: "Affect", kind: "Heuristic", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Affect-Heuristic.webp", questions: ["What do you like about your preferred approach?", "Are those the right criteria on which to base your decision?", "What do you dislike about the opposite approach?", "Are those the right criteria on which to base your decision?"] },
+    "confirmation-bias": { label: "Confirmation Bias", chip: "Confirmation", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Confirmation-Bias.webp", questions: ["What is the opposite approach to your preference?", "What data would support the opposite approach?", "How would you change your plan if that data emerged?", "How seriously have you researched that data?"] },
+    "loss-aversion": { label: "Loss Aversion", chip: "Loss Aversion", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Loss-Aversion.webp", questions: ["On what are your estimates of risk and reward based?", "What is your confidence level in those assessments?", "If you're overestimating the risk by 50%, would you reach the same conclusion?", "If you're underestimating the reward by 50%, would you reach the same conclusion?"] },
+    "sunk-cost-fallacy": { label: "Sunk Cost Fallacy", chip: "Sunk Cost", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Sunk-Cost.webp", questions: ["Why hasn't the plan worked as expected?", "What internal changes will you make to get better results?", "What external changes do you anticipate?", "If you were starting today, is this the strategy you would choose?"] },
+    "halo-horns-effect": { label: "The Halo / Horns Effect", chip: "Halo/Horns", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Halo.webp", questions: ["What do you definitively know about the subject in question?", "What do you assume based on that definitive knowledge?", "What is the worst that can be said of a subject you like?", "What is the best that can be said of a subject you dislike?"] },
+    "escalation-of-commitment": { label: "Escalation of Commitment", chip: "Escalation", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Escalation-of-Commitment.webp", questions: ["What metrics would indicate the project is succeeding?", "Why haven't they been achieved?", "Is there a viable strategy to achieve different results?", "What data would indicate the plan will not work?"] },
+    "planning-fallacy": { label: "Planning Fallacy", chip: "Planning", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Planning-Fallacy.webp", questions: ["How long will the project take?", "How much will it cost?", "How many additional resources will it require?", "After multiplying all three by three, is it still worth doing?"] },
+    "status-quo-bias": { label: "Status Quo Bias", chip: "Status Quo", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Status-Quo.webp", questions: ["What is the best case for maintaining the status quo?", "What is the worst case for maintaining it?", "Which is more likely — the best case or the worst?", "If you were starting today, is the status quo what you would choose?"] },
+    "availability-heuristic": { label: "Availability Heuristic", chip: "Availability", kind: "Heuristic", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Availability-Heuristic.webp", questions: ["What is most top of mind for the organization?", "What is most top of mind for the industry?", "How could these over-influence you?", "Is your plan still appealing if conditions change?"] },
+    "overconfidence-bias": { label: "Overconfidence Bias", chip: "Overconfidence", kind: "Bias", feature: "https://glindagroup.com/wp-content/uploads/2025/12/Glinda-Group-_Overconfidence-Bias.webp", questions: ["How much does your plan depend on your own performance?", "How much depends on factors outside your control?", "Is it still worth doing if it underperforms by 30%?", "What external factors could derail it, and how likely are they?"] },
+  };
+
+  const ARTICLE_POSTS = [
+    { article: "affect-heuristic", hook: "You want the donut. You also don't want the donut. That's every hard call your team makes.", body: ["The affect heuristic is emotion pretending to be analysis \u2014 you feel the answer, then reason backward to justify it. Some days Homer Simpson runs your strategy meetings more than you'd like.", "Name the feeling, and you get your judgment back."] },
+    { article: "affect-heuristic", hook: "You didn't hire the best candidate. You hired the one you liked.", body: ["That's the affect heuristic \u2014 a feeling standing in for the analysis, wearing a name tag that says \"instinct.\" Warm doctor, \"all natural\" label, the vendor you'd grab a beer with.", "Trust your gut. Then check its work."] },
+    { article: "affect-heuristic", hook: "Ninety percent of your decisions are made before you think about them.", body: ["Kahneman called it System 1 \u2014 fast, easy, running on emotion. The affect heuristic is the driver. You're not irrational; feeling is just faster than reason, and the clock never stops.", "Fast feelings, slow regrets."] },
+    { article: "affect-heuristic", hook: "Strip emotion out of your decisions and you'll make brilliant ones. You'll also be a Vulcan.", body: ["No romance, no humor, no triumph \u2014 emotion gives us everything worth having. It also quietly picks your vendors, your hires, your strategy, while you're not looking.", "The goal isn't a cold decision. It's a conscious one."] },
+    { article: "affect-heuristic", hook: "You're scared of the plane. You should be scared of the drive to the airport.", body: ["The affect heuristic lets vivid feelings hijack the math \u2014 flying feels dangerous, driving feels fine, the data says the opposite. Your team runs the same trick on every \"risky\" call.", "Feelings aren't facts. But they vote first."] },
+    { article: "confirmation-bias", hook: "You're not gathering evidence. You're building a defense.", body: ["That's confirmation bias \u2014 we scan the world for \"yes\" and delete the \"no.\" It feels like research. It's really recruitment.", "The smartest person in the room is the one hunting for what makes them wrong."] },
+    { article: "confirmation-bias", hook: "Confirmation bias isn't about being dumb. It's about being safe.", body: ["Your team ignores the inconvenient data because it threatens someone's status \u2014 a shield, not a blind spot. Which is why more slides never fix it. You have to make it safe to be wrong first.", "Feeling safe beats being right. Fix that order."] },
+    { article: "confirmation-bias", hook: "Want a superpower? Go find the data that proves you wrong.", body: ["Confirmation bias means we research our favorite answer and skim the rest. The counter-move is one uncomfortable question: what evidence would change my mind \u2014 and have I actually looked for it?", "Conviction is cheap. Disconfirmation is the tell."] },
+    { article: "confirmation-bias", hook: "The Emperor had no clothes because nobody was paid to see the fabric.", body: ["Confirmation bias runs the same con in every org: the boss floats an idea, and suddenly the whole room finds reasons it's brilliant. Agreement isn't alignment \u2014 it's often just self-preservation.", "The child who spoke up wasn't smarter. He just had nothing to lose."] },
+    { article: "confirmation-bias", hook: "Every team has a favorite answer. Few have looked for its opposite.", body: ["Confirmation bias hides in the questions you don't ask. So in the JA(d)M Session we make the org ask them: what's the opposing view, what data backs it, what would change the plan?", "You don't beat a bias by trying harder. You beat it with better questions."] },
+    { article: "loss-aversion", hook: "Ask any coach: the hatred of losing beats the love of winning. Every time.", body: ["That's loss aversion \u2014 a loss hits about twice as hard as the equal gain. It kept our ancestors alive. It also keeps your org clutching things it should have dropped years ago.", "Winning is nice. Losing feels like death. Plan for that."] },
+    { article: "loss-aversion", hook: "Blockbuster didn't die from streaming. It died protecting late fees.", body: ["Loss aversion makes us guard what we have so fiercely we miss what we could become. The sure loss today looms larger than the bigger prize tomorrow.", "The thing you're protecting is usually the thing that's sinking you."] },
+    { article: "loss-aversion", hook: "A team with a big lead starts playing not to lose. So does a team with a big budget.", body: ["Loss aversion flips us from offense to defense the moment we have something to protect. Kahneman and Tversky built Prospect Theory showing our risk math bends to the scoreboard.", "You can't win a game you're only trying not to lose."] },
+    { article: "loss-aversion", hook: "We overvalue whatever we already own \u2014 including our own bad strategy.", body: ["That's loss aversion plus the endowment effect: the \"devil you know\" feels safer than the upside you can't yet touch. So orgs re-fund losers and starve the bets that matter.", "Ownership isn't insight. Sometimes it's just a heavier anchor."] },
+    { article: "loss-aversion", hook: "You're not weighing risk against reward. You're weighing fear against fear.", body: ["Loss aversion quietly doubles the \"cost\" side of every decision. In JA(d)M we run the check: if you overstated the risk by half, or understated the reward by half \u2014 same call?", "The scoreboard lies when you're afraid to lose."] },
+    { article: "sunk-cost-fallacy", hook: "The captain goes down with the ship. So does your org \u2014 with its worst project.", body: ["The sunk cost fallacy is staying the course because of what you've already spent, not because it's still the right course. The more you've poured in, the harder it grips.", "Money already gone shouldn't get a vote in what happens next."] },
+    { article: "sunk-cost-fallacy", hook: "\"We've come too far to stop now\" is the most expensive sentence in business.", body: ["That's the sunk cost fallacy talking. Past investment feels like a reason to continue; it's really just a reason you feel bad quitting.", "The question isn't how much you've spent. It's what you'd do if you were starting today."] },
+    { article: "sunk-cost-fallacy", hook: "Every doomed project has a hero defending it \u2014 usually the person who started it.", body: ["Sunk cost isn't only about money. When a leader's status rides on being right, they'll fund the loss to protect the story. Vindication quietly beats the org's interest.", "Kill the project before it kills the quarter."] },
+    { article: "sunk-cost-fallacy", hook: "You finished the terrible movie because you paid for the ticket. Your org does that with strategy.", body: ["Sunk cost fallacy: we throw good time after bad to justify the time already lost. Hope disguises itself as grit.", "Grit finishes marathons. It also finishes companies. Know which one you're running."] },
+    { article: "sunk-cost-fallacy", hook: "If you were starting today, would you still choose this?", body: ["It's the single most useful question we ask in a JA(d)M Session \u2014 because sunk cost hides in everything you've already built. If the honest answer is no, the past just lost the argument.", "Yesterday's spend is not tomorrow's strategy."] },
+    { article: "halo-horns-effect", hook: "One great trait, and suddenly they can do no wrong. That's the halo effect \u2014 and it's costing you.", body: ["We take a single data point and build a whole person out of it. Charming becomes competent. One miss becomes useless. The brain loves a tidy story.", "People are not one adjective. Stop casting them as one."] },
+    { article: "halo-horns-effect", hook: "The halo effect is why your best salesperson just became your worst manager.", body: ["One shining strength gets read as strength at everything \u2014 hello, Peter Principle. Meanwhile the horns effect buries capable people over a single bad first impression.", "Promote the skill you need, not the halo you noticed."] },
+    { article: "halo-horns-effect", hook: "Your quietest employee isn't underperforming. They're being under-read.", body: ["The horns effect turns one flat interview or one awkward meeting into a permanent verdict. Introverts pay this tax daily. It feels like judgment; it's just lazy categorization.", "The worst thing about someone you like \u2014 that's the question that saves you."] },
+    { article: "halo-horns-effect", hook: "In the C-suite, one success makes an idea untouchable. One failure makes it radioactive.", body: ["That's halo and horns, amplified by groupthink. The evidence stops mattering; the label does all the work.", "What's the best case for the thing you've written off? Ask it before it's gone."] },
+    { article: "halo-horns-effect", hook: "What do you actually know \u2014 and what are you just assuming from it?", body: ["The halo/horns effect blurs that line constantly. In JA(d)M we pull it back apart: the fact, the assumption, the worst case for someone you love, the best case for someone you don't.", "Impressions are fast. They're also frequently fiction."] },
+    { article: "escalation-of-commitment", hook: "When does grit become insanity? When the evidence says stop and you double down anyway.", body: ["That's escalation of commitment. \"Try, try again\" and \"same thing, different result\" are the same behavior \u2014 context decides which one you're living.", "Persistence is a virtue right up until it's a bias wearing a cape."] },
+    { article: "escalation-of-commitment", hook: "The Concorde was beautiful, brilliant, and losing money on every flight for years.", body: ["Escalation of commitment: they kept pouring in resources because they'd already poured in resources. Quitting felt like admitting the whole thing was wrong.", "Sometimes the bravest strategic move is the U-turn."] },
+    { article: "escalation-of-commitment", hook: "\"We just need to push harder\" \u2014 said every leader right before the write-off.", body: ["Escalation of commitment feels like conviction but runs on fear and a need to stay consistent with yesterday's call. Cialdini named the trap: we defend our past selves.", "Loyalty to a decision is not the same as loyalty to the goal."] },
+    { article: "escalation-of-commitment", hook: "Your team keeps funding the failing initiative because stopping would prove they were wrong.", body: ["That's escalation, not strategy. The more public the commitment, the harder the reversal \u2014 evidence bounces right off.", "Ask it cold: what result would tell you the plan won't work? Then watch for it honestly."] },
+    { article: "escalation-of-commitment", hook: "What metric would prove this isn't working \u2014 and have you already blown past it?", body: ["That's the JA(d)M de-escalation question, and it's brutal on purpose. Escalation of commitment survives only while nobody defines \"enough.\"", "Name the exit before you need it, or you'll never take it."] },
+    { article: "planning-fallacy", hook: "Add one word to \"behind schedule and over budget\": predictably.", body: ["That's the planning fallacy \u2014 we underestimate time, cost and effort on almost everything, almost always. The Sydney Opera House ran ten years late and 1,400% over. Your two-week rollout is doing the same thing, smaller.", "Optimism is lovely. It is not a project plan."] },
+    { article: "planning-fallacy", hook: "The Big Dig. Denver Airport. Berlin Brandenburg. All \"on track\" once, too.", body: ["The planning fallacy isn't bad luck; it's a wired-in blind spot. And at work it's rewarded \u2014 confidently promising big numbers is a career accelerant, right up until the numbers arrive.", "The estimate that made you look good is the one that burns out your team."] },
+    { article: "planning-fallacy", hook: "Whatever your team estimated, multiply it by three. Now decide.", body: ["It sounds like a joke. It's the most honest planning tool we've got. The planning fallacy makes best-case the default case, every single time.", "If it's still worth it at 3\u00d7 the time and cost, now you've got a plan."] },
+    { article: "planning-fallacy", hook: "Your best people are burning out to hit a number someone guessed in a meeting.", body: ["That's the planning fallacy with a human cost. Unrealistic timelines don't just slip \u2014 they cascade into rushed work, strained trust, and a culture that needs herculean repair.", "Plan for the project you'll actually have, not the one you hoped for."] },
+    { article: "planning-fallacy", hook: "The people who know how long it really takes are the ones not in the room.", body: ["Planning fallacy thrives when execs estimate and the front line stays silent. In JA(d)M we surface the honest number before it becomes a crisis.", "Ask the person doing the work. Then triple it anyway."] },
+    { article: "status-quo-bias", hook: "Sears. Kodak. Blockbuster. BlackBerry. Each one chose the comfortable \"no.\"", body: ["That's status quo bias \u2014 the pull to keep things as they are, even when \"as they are\" is quietly killing you. Doing nothing feels safe because its cost is invisible.", "More than half the Fortune 500 has vanished in twenty years. Standing still is a decision."] },
+    { article: "status-quo-bias", hook: "Your instincts are always safe. They are not always correct.", body: ["Status quo bias hardwires us to treat \"what we already do\" as the low-risk option. Loss aversion and omission bias team up: acting and failing stings more than freezing and failing.", "Comfort is not the same as safety. Usually it's the opposite."] },
+    { article: "status-quo-bias", hook: "The bigger the org, the taller the wall around the way things are.", body: ["Status quo bias scales: leaders are invested in the structures that made them, and everyone below fears the risk of change. So the legacy system nobody likes survives another year.", "\"We've always done it this way\" is a cost, not a reason."] },
+    { article: "status-quo-bias", hook: "BlackBerry looked at the iPhone and doubled down on the keyboard.", body: ["That's status quo bias in one image \u2014 clinging to yesterday's strength while the ground moves. The threat felt survivable because change felt scarier.", "The question isn't \"why change?\" It's \"what happens if we don't?\""] },
+    { article: "status-quo-bias", hook: "If you were building this from scratch today, would you build what you have?", body: ["Status quo bias only survives while nobody asks. In JA(d)M we weigh the real best and worst cases of standing pat \u2014 and the \"safe\" option usually isn't.", "Inertia is a choice. Make it on purpose, or not at all."] },
+    { article: "availability-heuristic", hook: "The last thing that went wrong feels like the most likely thing to go wrong. It usually isn't.", body: ["That's the availability heuristic \u2014 whatever's vivid and recent hijacks your sense of what's probable. One dramatic failure, and the whole strategy bends around avoiding a repeat.", "Memorable is not the same as likely."] },
+    { article: "availability-heuristic", hook: "Your team is solving last quarter's crisis. Again.", body: ["The availability heuristic makes the freshest, loudest event feel like the main event. So orgs over-index on whatever just happened and miss what's quietly building.", "What's top of mind is rarely the same as what's top priority."] },
+    { article: "availability-heuristic", hook: "One competitor's headline can quietly rewrite your entire roadmap.", body: ["That's the availability heuristic \u2014 industry noise that's easy to recall feels more important than it is. You chase the story everyone's telling instead of the one your data is.", "Loud isn't the same as true. Ask what you're overweighting."] },
+    { article: "availability-heuristic", hook: "You remember the one time the risky bet paid off. You forget the ten times it didn't.", body: ["That's the availability heuristic \u2014 the vivid win is easy to recall, so it feels representative. Orgs greenlight the moonshot because one famous moonshot worked.", "Your memory is a highlight reel, not a data set."] },
+    { article: "availability-heuristic", hook: "What's dominating the room right now \u2014 and how much is it distorting the call?", body: ["The availability heuristic hides in whatever's freshest. In JA(d)M we name what's top of mind, then ask whether the plan still holds when conditions change.", "Recent isn't the same as relevant. Check which one you're reacting to."] },
+    { article: "overconfidence-bias", hook: "\"Often wrong, never in doubt\" isn't a personality. It's a bias \u2014 and it's expensive.", body: ["Overconfidence bias makes us overrate our skill, our knowledge, and our luck all at once. We credit the wins to talent and pin the losses on the weather.", "Confidence feels like competence. The two are barely acquainted."] },
+    { article: "overconfidence-bias", hook: "Kahneman studied 8,000 traders and found zero skill carrying from one year to the next. Zero.", body: ["It was luck wearing a suit. But overconfidence bias let every winner believe they'd earned it \u2014 and bet bigger next time.", "Past success is the most persuasive liar in the building."] },
+    { article: "overconfidence-bias", hook: "Theranos didn't fail from a lack of confidence. It failed from a surplus.", body: ["Overconfidence bias plus groupthink is how a smart room talks itself off a cliff. Certainty silences the questions that would have saved them.", "The moment no one's nervous is the moment you should be."] },
+    { article: "overconfidence-bias", hook: "How much of your plan depends on you being at your best?", body: ["Overconfidence bias assumes the world cooperates and you perform. In JA(d)M we stress-test it: what external factors could derail this, and how likely are they really?", "Plan for the you that has an off day. That one shows up too."] },
+    { article: "overconfidence-bias", hook: "Still worth doing if it underperforms by 30%? By 50%?", body: ["That's the question overconfidence hates, because it assumes you're not special. The goal isn't to kill confidence \u2014 it's to convert it into the real kind.", "Real confidence survives the discount. False confidence never runs the numbers."] },
+  ];
 
   const POSTS = [
     // 1. goals-trial
@@ -658,46 +763,120 @@
     return base + '?utm_source=linkedin&utm_medium=social&utm_campaign=engage_glinda&utm_content=post_boost&utm_term=' + WORKSHOP_TERMS[lp];
   }
 
+  function buildArticleUrl(slug) {
+    return LPS['decisions-jadm'].urlBase + '?utm_source=linkedin&utm_medium=social&utm_campaign=biases_heuristics_2026&utm_content=post_boost&utm_term=jadm_session&article=' + slug;
+  }
+
+  // Workshop / consultation CTA lands on the JA(d)M landing page (form + book-a-call).
+  const WORKSHOP_URL = LPS['decisions-jadm'].urlBase + '?utm_source=linkedin&utm_medium=social&utm_campaign=biases_heuristics_2026&utm_content=post_boost&utm_term=jadm_session';
+  const BOILERPLATE_H = 'See Where Biases Are Hiding in Your Organization';
+  const BOILERPLATE_P = 'Our workshops help leadership teams identify and mitigate decision-making biases before they derail strategy.';
+  const BOILERPLATE_CTA = 'Book a consultation to explore a solution for your organization:';
+  const QUESTIONS_INTRO = 'There are four questions you can ask yourself:';
+
+  // Default schedule start = tomorrow (posting cadence: 1/day).
+  const START_DATE = '2026-07-14';           // Day 1 — first post published today
+  const PUBLISHED_THROUGH_DAY = 1;
+
+  // Variant-major cycle: variant 1 across all 10 articles, then variant 2 ... through 5.
+  function buildSchedule(startStr) {
+    const slugs = Object.keys(ARTICLES);
+    const byArticle = {};
+    slugs.forEach(sl => { byArticle[sl] = ARTICLE_POSTS.filter(p => p.article === sl); });
+    const start = startStr ? new Date(startStr + 'T00:00:00') : null;
+    const order = [];
+    let day = 0;
+    for (let v = 0; v < 5; v++) {
+      for (const sl of slugs) {
+        const p = byArticle[sl][v];
+        if (!p) continue;
+        day++;
+        p._day = day;
+        p._variant = v + 1;
+        if (start) {
+          const d = new Date(start); d.setDate(d.getDate() + (day - 1));
+          p._date = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        } else { p._date = ''; }
+        order.push(p);
+      }
+    }
+    return order;
+  }
+
+
   function renderCard(post) {
-    const a = AUTHORS[post.author];
-    const l = LPS[post.lp];
-    const url = buildUrl(post.lp, post.author);
-    const hostname = 'engage.glindagroup.com';
+    const isArticle = !!post.article;
+    const a = AUTHORS[isArticle ? 'gg' : post.author];
 
     const card = document.createElement('article');
     card.className = 'post-card';
-    card.dataset.author = post.author;
-    card.dataset.lp = post.lp;
+    card.dataset.author = isArticle ? 'gg' : post.author;
+    card.dataset.lp = isArticle ? 'decisions-jadm' : post.lp;
+    card.dataset.campaign = isArticle ? 'article' : 'lp';
+    if (isArticle) card.dataset.article = post.article;
 
     const avatarHtml = a.isCompany
       ? `<div class="avatar company"><img src="${a.avatar}" alt=""></div>`
       : `<div class="avatar"><img src="${a.avatar}" alt="${a.name}"></div>`;
-
-    const bodyHtml = post.body.map(p => `<p>${escapeHtml(p)}</p>`).join('');
-
-    // Realistic-looking engagement numbers
-    const reactions = randomBetween(28, 187);
-    const comments  = randomBetween(3, 24);
-    const reposts   = randomBetween(0, 9);
-
-    card.innerHTML = `
+    const headHtml = `
       <div class="post-head">
         ${avatarHtml}
         <div class="head-text">
-          <div class="head-name">
-            ${escapeHtml(a.name)}
-            ${a.verified ? '<span class="badge" title="Verified company">✓</span>' : ''}
-          </div>
+          <div class="head-name">${escapeHtml(a.name)}${a.verified ? '<span class="badge" title="Verified company">✓</span>' : ''}</div>
           <div class="head-headline">${escapeHtml(a.headline)}</div>
           <div class="head-time">${a.time} · 🌐</div>
         </div>
+      </div>`;
+    const bodyHtml = post.body.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    const reactions = randomBetween(28, 187);
+    const comments  = randomBetween(3, 24);
+    const reposts   = randomBetween(0, 9);
+    const statsHtml = `
+      <div class="post-stats">
+        <div class="reactions"><span class="reaction-dots"><span class="dot r-like"></span><span class="dot r-celebrate"></span><span class="dot r-insight"></span></span><span>${reactions}</span></div>
+        <div>${comments} comments · ${reposts} reposts</div>
       </div>
+      <div class="post-actions">
+        <div class="post-action">${ICONS.like} Like</div>
+        <div class="post-action">${ICONS.comment} Comment</div>
+        <div class="post-action">${ICONS.repost} Repost</div>
+        <div class="post-action">${ICONS.send} Send</div>
+      </div>`;
 
-      <div class="post-body">
-        <span class="hook">${escapeHtml(post.hook)}</span>
-        ${bodyHtml}
-      </div>
+    if (isArticle) {
+      const art = ARTICLES[post.article];
+      const readUrl = buildArticleUrl(post.article);
+      const qs = art.questions || [];
+      const questionsHtml = qs.length
+        ? `<p class="post-cta">${escapeHtml(QUESTIONS_INTRO)}</p><p class="post-questions">` + qs.map(q => '\u2192 ' + escapeHtml(q)).join('<br>') + `</p>`
+        : '';
+      const dayHtml = post._day
+        ? `<div class="day-badge">Day ${post._day} · variant ${post._variant}/5${post._date ? ' · ' + post._date : ''}${post._day <= PUBLISHED_THROUGH_DAY ? ' · ✓ Posted' : ''}</div>`
+        : '';
+      card.innerHTML = `
+        ${dayHtml}
+        ${headHtml}
+        <div class="post-body">
+          <span class="hook">${escapeHtml(post.hook)}</span>
+          ${bodyHtml}
+          ${questionsHtml}
+          <p class="post-cta">Read the full article: <a href="${readUrl}" target="_blank" rel="noopener">${readUrl}</a></p>
+          <p class="post-boiler-h">${escapeHtml(BOILERPLATE_H)}</p>
+          <p>${escapeHtml(BOILERPLATE_P)}</p>
+          <p class="post-cta">${escapeHtml(BOILERPLATE_CTA)} <a href="${WORKSHOP_URL}" target="_blank" rel="noopener">${WORKSHOP_URL}</a></p>
+        </div>
+        <div class="post-image"><img src="${art.feature}" alt="${escapeHtml(art.label)}" loading="lazy"></div>
+        ${statsHtml}`;
+      return card;
+    }
 
+    // LP promo card (original layout with OG link-preview)
+    const l = LPS[post.lp];
+    const url = buildUrl(post.lp, post.author);
+    const hostname = 'engage.glindagroup.com';
+    card.innerHTML = `
+      ${headHtml}
+      <div class="post-body"><span class="hook">${escapeHtml(post.hook)}</span>${bodyHtml}</div>
       <a class="link-preview" href="${url}" target="_blank" rel="noopener">
         <div class="lp-image" style="background-image:url('${l.ogImage}')"></div>
         <div class="lp-meta">
@@ -706,26 +885,7 @@
           <div class="lp-url">${hostname}</div>
         </div>
       </a>
-
-      <div class="post-stats">
-        <div class="reactions">
-          <span class="reaction-dots">
-            <span class="dot r-like"></span>
-            <span class="dot r-celebrate"></span>
-            <span class="dot r-insight"></span>
-          </span>
-          <span>${reactions}</span>
-        </div>
-        <div>${comments} comments · ${reposts} reposts</div>
-      </div>
-
-      <div class="post-actions">
-        <div class="post-action">${ICONS.like} Like</div>
-        <div class="post-action">${ICONS.comment} Comment</div>
-        <div class="post-action">${ICONS.repost} Repost</div>
-        <div class="post-action">${ICONS.send} Send</div>
-      </div>
-    `;
+      ${statsHtml}`;
     return card;
   }
 
@@ -741,45 +901,66 @@
 
   function render() {
     const feed = document.getElementById('feed');
+    buildSchedule(START_DATE);   // assigns _day/_variant/_date to article posts (for day badges)
     feed.innerHTML = '';
 
-    // Group by LP for dividers, but show all
-    const lps = Object.keys(LPS);
-    for (const lp of lps) {
+    // Campaign 1 — LP promotion (grouped by landing page)
+    for (const lp of Object.keys(LPS)) {
       const divider = document.createElement('div');
       divider.className = 'lp-divider';
       divider.dataset.lp = lp;
-      divider.textContent = LPS[lp].label + ' — /' + lp + '/';
+      divider.dataset.campaign = 'lp';
+      divider.textContent = LPS[lp].label + ' \u2014 /' + lp + '/';
       feed.appendChild(divider);
+      POSTS.filter(p => p.lp === lp).forEach(p => feed.appendChild(renderCard(p)));
+    }
 
-      const lpPosts = POSTS.filter(p => p.lp === lp);
-      for (const post of lpPosts) {
-        feed.appendChild(renderCard(post));
-      }
+    // Campaign 2 — JA(d)M bias articles (grouped by article, Glinda Group voice)
+    for (const slug of Object.keys(ARTICLES)) {
+      const divider = document.createElement('div');
+      divider.className = 'lp-divider article-divider';
+      divider.dataset.article = slug;
+      divider.dataset.campaign = 'article';
+      divider.textContent = ARTICLES[slug].label + ' \u2014 /decisions-jadm/?article=' + slug;
+      feed.appendChild(divider);
+      ARTICLE_POSTS.filter(p => p.article === slug).forEach(p => feed.appendChild(renderCard(p)));
     }
   }
 
+  function activeVal(group) {
+    const el = document.querySelector('.chip.active[data-filter="' + group + '"]');
+    return el ? el.dataset.value : 'all';
+  }
+  function activeTab() {
+    const t = document.querySelector('.tab.active');
+    return t ? t.dataset.tab : 'article';
+  }
   function applyFilters() {
-    const author = document.querySelector('.chip.active[data-filter="author"]').dataset.value;
-    const lp = document.querySelector('.chip.active[data-filter="lp"]').dataset.value;
-
-    const cards = document.querySelectorAll('.post-card');
-    cards.forEach(c => {
-      const matchAuthor = (author === 'all' || c.dataset.author === author);
-      const matchLp     = (lp === 'all' || c.dataset.lp === lp);
-      c.classList.toggle('hidden', !(matchAuthor && matchLp));
-    });
-
-    // Hide LP dividers when no posts for that LP remain visible
-    const dividers = document.querySelectorAll('.lp-divider');
-    dividers.forEach(d => {
-      const dlp = d.dataset.lp;
-      if (lp !== 'all' && lp !== dlp) {
-        d.classList.add('hidden');
+    const tab = activeTab();
+    const author = activeVal('author');
+    const lp = activeVal('lp');
+    const article = activeVal('article');
+    const feed = document.getElementById('feed');
+    let currentDivider = null, visibleInGroup = 0;
+    const finalize = () => { if (currentDivider) currentDivider.classList.toggle('hidden', visibleInGroup === 0); };
+    Array.from(feed.children).forEach(node => {
+      if (node.classList.contains('lp-divider')) {
+        finalize();
+        currentDivider = node; visibleInGroup = 0;
         return;
       }
-      d.classList.remove('hidden');
+      const d = node.dataset;
+      const cardSet = d.campaign || 'lp';
+      let show = (cardSet === tab);
+      if (show) {
+        show = (tab === 'lp')
+          ? ((author === 'all' || d.author === author) && (lp === 'all' || d.lp === lp))
+          : (article === 'all' || d.article === article);
+      }
+      node.classList.toggle('hidden', !show);
+      if (show) visibleInGroup++;
     });
+    finalize();
   }
 
   document.querySelectorAll('.chip').forEach(chip => {
@@ -791,7 +972,30 @@
     });
   });
 
+  // Tabs are deep-linkable: #biases -> Biases & Heuristics, #lp -> LP promotion
+  function selectTab(which) {
+    if (which !== 'lp' && which !== 'article') which = 'article';
+    document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === which));
+    document.querySelectorAll('.filters[data-for]').forEach(f => { f.hidden = (f.dataset.for !== which); });
+    applyFilters();
+  }
+  function hashToTab() {
+    const h = (location.hash || '').replace('#', '').toLowerCase();
+    if (h === 'lp' || h === 'lp-promotion') return 'lp';
+    if (h === 'biases' || h === 'biases-heuristics' || h === 'article') return 'article';
+    return null;
+  }
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const which = tab.dataset.tab;
+      history.replaceState(null, '', '#' + (which === 'lp' ? 'lp' : 'biases'));
+      selectTab(which);
+    });
+  });
+  window.addEventListener('hashchange', () => { const t = hashToTab(); if (t) selectTab(t); });
+
   render();
+  selectTab(hashToTab() || 'article');
 </script>
 
 </body>
