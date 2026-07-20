@@ -209,7 +209,9 @@
     document.body.style.overflow = '';
     removeArticleParam();
     if (lastTrigger && typeof lastTrigger.focus === 'function') {
-      lastTrigger.focus();
+      // preventScroll: closing the pane should not scroll-jump the page back
+      // to the trigger (and that jump also interfered with the CTA scroll).
+      try { lastTrigger.focus({ preventScroll: true }); } catch (e) { lastTrigger.focus(); }
     }
   }
 
@@ -301,16 +303,21 @@
     if (e.key === 'Escape' && overlay.classList.contains('open')) close();
   });
 
-  // Sticky CTA: same-page anchors close the pane, then smooth-scroll to target.
+  // Sticky CTA: same-page anchors close the pane, then jump to the target.
+  // Uses native hash navigation — a programmatic scrollIntoView after close()
+  // was unreliable on long pages, while the browser's own anchor scroll works.
   ctaLink.addEventListener('click', function (e) {
     var href = ctaLink.getAttribute('href') || '';
     if (href.charAt(0) === '#') {
       e.preventDefault();
       close();
       setTimeout(function () {
-        var el = document.querySelector(href);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 260);
+        // Clear an already-matching hash first so the anchor jump re-fires.
+        if (window.location.hash === href) {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+        window.location.hash = href;
+      }, 60);
     } else {
       close();
     }
